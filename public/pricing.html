@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Websies | Simple, Transparent Pricing</title>
+    <meta name="description" content="£47/month. No contracts. Cancel anytime. See your website demo before paying anything.">
+    
+    <!-- Scripts and Styles - Matching Home Page -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="auth.js"></script>
+    <script src="header-loader.js"></script>
+    <script src="footer-loader.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        'cyan-400': '#FF416C',
+                        'blue-500': '#FF4B2B',
+                        'accent': '#00F2FE',
+                        'dark': '#1A1A1A'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #13171F;
+            --bg-surface: #1A1F2E;
+            --bg-surface-elevated: #212738;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8BCC8;
+            --text-muted: #9CA3AF;
+            --accent-cyan: #00F2FE;
+            --accent-blue: #0A84FF;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(0, 242, 254, 0.3);
+            --glow-cyan: rgba(0, 242, 254, 0.15);
+            --glow-blue: rgba(10, 132, 255, 0.15);
+        }
+        
+        body { 
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1A1F2E 50%, #13171F 100%);
+            background-attachment: fixed;
+        }
+        
+        .gradient-primary { background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); }
+        .gradient-accent { background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%); }
+        .text-gradient { background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glow-cyan { box-shadow: 0 0 8px var(--glow-cyan); }
+        .glow-primary { box-shadow: 0 0 12px rgba(255, 65, 108, 0.2); }
+        .hover-pop { transition: all 0.3s ease; }
+        .hover-pop:hover { transform: translateY(-8px) scale(1.02); }
+        .neon-border { border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px var(--border-accent); }
+        
+        /* Modern card styling - matching home page */
+        .modern-card {
+            background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-cyan);
+            border-color: var(--border-accent);
+        }
+        
+        /* Pricing card special effects */
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue), var(--accent-cyan));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .pricing-card:hover::before {
+            opacity: 0.5;
+        }
+        
+        /* Match home page button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 65, 108, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-cyan);
+            padding: 12px 32px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            transform: scale(1.05);
+        }
+        
+        /* Enhanced glossy header effect v2.0 - from index.html */
+        #header {
+            transition: all 0.3s ease;
+            position: fixed !important;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.12) 50%, rgba(0,0,0,0.1) 100%) !important;
+            backdrop-filter: blur(25px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+        }
+        
+        #header:hover {
+            backdrop-filter: blur(30px) saturate(220%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(220%) !important;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25) !important;
+        }
+
+        /* Professional sections */
+        .section-modern {
+            background: linear-gradient(135deg, 
+                rgba(26, 31, 46, 0.6) 0%, 
+                rgba(19, 23, 31, 0.8) 50%, 
+                rgba(26, 31, 46, 0.6) 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .section-elevated {
+            background: linear-gradient(135deg, 
+                var(--bg-surface) 0%, 
+                var(--bg-surface-elevated) 100%);
+            position: relative;
+        }
+        
+        .section-elevated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top left, var(--glow-cyan), transparent 50%),
+                        radial-gradient(ellipse at bottom right, var(--glow-blue), transparent 50%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Animations from index.html */
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes gentle-float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+        @keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.3); } 50% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); } }
+        @keyframes coin-spin { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        @keyframes orbit { 0% { transform: rotate(0deg) translateX(0px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(0px) rotate(-360deg); } }
+        @keyframes subtle-float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
+        
+        .float-animation { animation: float 3s ease-in-out infinite; }
+        .gentle-float-animation { animation: gentle-float 4s ease-in-out infinite; }
+        .glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+        .coin-animation { animation: coin-spin 2s linear infinite; }
+
+        /* Ensure consistent scaling across zoom levels */
+        html { font-size: clamp(14px, 1vw, 18px); }
+        
+        /* Container fix */
+        .container { max-width: min(100%, 1400px); }
+
+        /* Horizontal scroll for mobile */
+        .horizontal-scroll { overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+        /* Ensure Inter font is used globally */
+        body {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Preserve Font Awesome icons */
+        .fa, .fas, .far, .fal, .fab {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+        }
+        
+        /* Modal styles - ensure hidden by default */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .login-modal {
+            background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.1);
+        }
+
+        .login-form input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* User menu styles */
+        .user-menu {
+            position: relative;
+            display: none;
+        }
+        
+        .user-menu.active {
+            display: block;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 200px;
+            display: none;
+        }
+        
+        .user-dropdown.active {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .dropdown-item:hover {
+            background: var(--bg-primary);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body class="font-sans" style="background: linear-gradient(135deg, #13171F 0%, #1A1F2E 50%, #13171F 100%); background-attachment: fixed;">
+
+<!-- Global Header Placeholder -->
+<div id="header-placeholder"></div>
+
+<!-- Hero Section - Matching Home Page Style -->
+<section class="relative min-h-[60vh] overflow-hidden" style="padding-top: 80px;">
+    <!-- Background Glow Effects -->
+    <div class="absolute inset-0 opacity-30">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
+        <div class="text-center max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-white mb-6 leading-tight">
+                Simple, <span class="text-gradient">Transparent</span> Pricing
+            </h1>
+            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto font-inter">
+                No hidden fees. No contracts. Cancel anytime.<br>
+                See your website demo before paying anything.
+            </p>
+            
+            <!-- Key Value Props - Like Home Page -->
+            <div class="flex flex-wrap justify-center gap-8 md:gap-12">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-white mb-2">7</div>
+                    <div class="text-white/60 font-inter">Days to Launch</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-gradient mb-2">£47</div>
+                    <div class="text-white/60 font-inter">Per Month</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-white mb-2">£0</div>
+                    <div class="text-white/60 font-inter">Upfront Cost</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-[var(--accent-cyan)] mb-2">100%</div>
+                    <div class="text-white/60 font-inter">Custom Design</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Cards Section -->
+<section class="py-16 md:py-24 relative">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Starter Plan -->
+            <div class="modern-card pricing-card p-8 relative">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Starter</h3>
+                    <p class="text-white/60 text-sm">Perfect for small businesses</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-4xl font-montserrat font-bold text-white">£47</span>
+                    <span class="text-white/60">/month</span>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">5-page custom website</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Mobile responsive design</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Basic SEO optimization</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">SSL certificate included</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Monthly updates included</span>
+                    </li>
+                </ul>
+                <button class="btn-secondary w-full">
+                    Get Started
+                </button>
+            </div>
+            
+            <!-- Professional Plan (Popular) -->
+            <div class="modern-card pricing-card p-8 relative transform lg:scale-105 neon-border">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span class="gradient-accent text-white px-6 py-2 rounded-full text-xs font-semibold uppercase">Most Popular</span>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Professional</h3>
+                    <p class="text-white/60 text-sm">For growing businesses</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-4xl font-montserrat font-bold text-gradient">£97</span>
+                    <span class="text-white/60">/month</span>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">10-page custom website</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Advanced animations</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">E-commerce ready</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Advanced SEO & Analytics</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Weekly updates & priority support</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Custom integrations</span>
+                    </li>
+                </ul>
+                <button class="btn-primary w-full">
+                    Get Started
+                </button>
+            </div>
+            
+            <!-- Enterprise Plan -->
+            <div class="modern-card pricing-card p-8 relative">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Enterprise</h3>
+                    <p class="text-white/60 text-sm">For large organizations</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-4xl font-montserrat font-bold text-white">Custom</span>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Unlimited pages</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Custom development</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">Dedicated account manager</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">24/7 priority support</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
+                        <span class="text-white/70">SLA guarantee</span>
+                    </li>
+                </ul>
+                <button class="btn-secondary w-full">
+                    Contact Sales
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Comparison - Styled like Home Page Benefits -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                Everything You Need to <span class="text-gradient">Succeed Online</span>
+            </h2>
+            <p class="text-lg text-white/70 max-w-2xl mx-auto">
+                All plans include our core features. Choose based on your business size and needs.
+            </p>
+        </div>
+        
+        <div class="max-w-5xl mx-auto">
+            <div class="modern-card p-8 md:p-12">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-rocket text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">Lightning Fast</h4>
+                            <p class="text-white/60 text-sm">Optimized for speed with 90+ PageSpeed scores</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-mobile-alt text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">Mobile First</h4>
+                            <p class="text-white/60 text-sm">Perfectly responsive on all devices</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-shield-alt text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">Secure & Reliable</h4>
+                            <p class="text-white/60 text-sm">SSL certificates and daily backups</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-search text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">SEO Optimized</h4>
+                            <p class="text-white/60 text-sm">Built-in SEO best practices</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-chart-line text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">Analytics Ready</h4>
+                            <p class="text-white/60 text-sm">Google Analytics integration</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-headset text-xl text-[var(--accent-cyan)]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-montserrat font-bold text-white mb-2">Ongoing Support</h4>
+                            <p class="text-white/60 text-sm">Updates and maintenance included</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                Frequently Asked <span class="text-gradient">Questions</span>
+            </h2>
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-6">
+            <div class="modern-card p-6">
+                <h3 class="font-montserrat font-bold text-white mb-3">Can I cancel anytime?</h3>
+                <p class="text-white/70">Yes! No contracts, no cancellation fees. Cancel anytime with just one click.</p>
+            </div>
+            
+            <div class="modern-card p-6">
+                <h3 class="font-montserrat font-bold text-white mb-3">Do I own my website?</h3>
+                <p class="text-white/70">Yes, you own all the content and can export it anytime. We handle the technical hosting and maintenance.</p>
+            </div>
+            
+            <div class="modern-card p-6">
+                <h3 class="font-montserrat font-bold text-white mb-3">What if I need changes after launch?</h3>
+                <p class="text-white/70">All plans include monthly updates. Need more frequent changes? Our Professional plan includes weekly updates.</p>
+            </div>
+            
+            <div class="modern-card p-6">
+                <h3 class="font-montserrat font-bold text-white mb-3">Do you offer refunds?</h3>
+                <p class="text-white/70">We offer a 30-day money-back guarantee. If you're not happy, we'll refund your first month.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section - Matching Home Page Style -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="modern-card p-12 text-center max-w-4xl mx-auto relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/30 to-transparent rounded-full blur-3xl"></div>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-montserrat font-bold text-white mb-6">
+                    Ready to Get <span class="text-gradient">Started?</span>
+                </h2>
+                <p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+                    Join 500+ businesses that trust Websies for their online presence. 
+                    Get your custom website in just 7 days.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="btn-primary">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Get Your FREE Demo
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-calendar mr-2"></i>
+                        Book a Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Global Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+</body>
+</html>

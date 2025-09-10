@@ -1,0 +1,1853 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="auth.js"></script>
+    <script src="header-loader.js"></script>
+    <script src="footer-loader.js"></script>
+    
+    <script>
+        // Video fallback handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('video');
+            if (video) {
+                // Try to play the video
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('Video autoplay failed:', error);
+                        // Hide video element if it fails to play
+                        video.style.display = 'none';
+                    });
+                }
+                
+                // Additional fallback for video loading errors
+                video.addEventListener('error', function() {
+                    console.log('Video loading error');
+                    video.style.display = 'none';
+                });
+                
+                // Check if video can play
+                video.addEventListener('canplay', function() {
+                    console.log('Video can play');
+                });
+            }
+        });
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #13171F;
+            --bg-surface: #1A1F2E;
+            --bg-surface-elevated: #212738;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8BCC8;
+            --text-muted: #9CA3AF;
+            --accent-cyan: #00F2FE;
+            --accent-blue: #0A84FF;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(0, 242, 254, 0.3);
+            --glow-cyan: rgba(0, 242, 254, 0.15);
+            --glow-blue: rgba(10, 132, 255, 0.15);
+        }
+
+
+        
+        body { 
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1A1F2E 50%, #13171F 100%);
+            background-attachment: fixed;
+        }
+        
+        .gradient-primary { background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); }
+        .gradient-accent { background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%); }
+        .text-gradient { background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glow-cyan { box-shadow: 0 0 8px var(--glow-cyan); }
+        .glow-primary { box-shadow: 0 0 12px rgba(255, 65, 108, 0.2); }
+        .hover-pop { transition: all 0.3s ease; }
+        .hover-pop:hover { transform: translateY(-8px) scale(1.02); }
+        .neon-border { border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px var(--border-accent); }
+        .video-overlay { background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 100%); }
+        
+        /* Modern card styling */
+        .modern-card {
+            background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-cyan);
+            border-color: var(--border-accent);
+        }
+        
+        /* Professional sections */
+        .section-modern {
+            background: linear-gradient(135deg, 
+                rgba(26, 31, 46, 0.6) 0%, 
+                rgba(19, 23, 31, 0.8) 50%, 
+                rgba(26, 31, 46, 0.6) 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .section-elevated {
+            background: linear-gradient(135deg, 
+                var(--bg-surface) 0%, 
+                var(--bg-surface-elevated) 100%);
+            position: relative;
+        }
+        
+        .section-elevated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top left, var(--glow-cyan), transparent 50%),
+                        radial-gradient(ellipse at bottom right, var(--glow-blue), transparent 50%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes gentle-float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+        @keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.3); } 50% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); } }
+        @keyframes coin-spin { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        @keyframes orbit { 0% { transform: rotate(0deg) translateX(0px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(0px) rotate(-360deg); } }
+        @keyframes subtle-float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
+        
+        .float-animation { animation: float 3s ease-in-out infinite; }
+        .gentle-float-animation { animation: gentle-float 4s ease-in-out infinite; }
+        .glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+        .coin-animation { animation: coin-spin 2s linear infinite; }
+        .benefit-card { animation: subtle-float 4s ease-in-out infinite; }
+        .benefit-card:nth-child(2) { animation-delay: 0.5s; }
+        .benefit-card:nth-child(3) { animation-delay: 1s; }
+        .benefit-card:nth-child(4) { animation-delay: 1.5s; }
+        .benefit-card:nth-child(5) { animation-delay: 2s; }
+        .benefit-card:nth-child(6) { animation-delay: 2.5s; }
+        
+        .horizontal-scroll { overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        
+        /* Ensure consistent scaling across zoom levels */
+        html { font-size: clamp(14px, 1vw, 18px); }
+        
+        /* Make backgrounds scale with content */
+        .video-overlay { 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 100%); 
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        
+        /* Ensure floating elements stay proportional */
+        .float-animation { 
+            animation: float 3s ease-in-out infinite; 
+            will-change: transform;
+        }
+        
+        /* Consistent viewport scaling */
+        @media screen and (min-width: 320px) and (max-width: 3840px) {
+            .container { max-width: min(100%, 1400px); }
+        }
+        
+        /* Enhanced glossy header effect v2.0 */
+        #header {
+            transition: all 0.3s ease;
+            position: fixed !important;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.12) 50%, rgba(0,0,0,0.1) 100%) !important;
+            backdrop-filter: blur(25px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+        }
+        
+        #header:hover {
+            backdrop-filter: blur(30px) saturate(220%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(220%) !important;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25) !important;
+        }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "fontFamily": {
+        "montserrat": [
+          "Montserrat",
+          "sans-serif"
+        ],
+        "inter": [
+          "Inter",
+          "sans-serif"
+        ],
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      },
+      "colors": {
+        "cyan-400": "#FF416C",
+        "blue-500": "#FF4B2B",
+        "accent": "#00F2FE",
+        "dark": "#1A1A1A"
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+
+  /* Login Modal Styles */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .login-modal {
+    background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .login-form input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+  }
+
+  .login-form input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.1);
+  }
+
+  .login-form input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .close-modal:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+
+  .user-menu {
+    display: none;
+    position: relative;
+  }
+
+  .user-menu.active {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--bg-primary);
+    cursor: pointer;
+  }
+
+  .user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 12px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .user-dropdown.active {
+    display: block;
+  }
+
+  .dropdown-item {
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 14px;
+  }
+
+  .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 8px 0;
+  }
+  </style></head>
+<body class="font-sans" style="background: linear-gradient(135deg, #13171F 0%, #1A1F2E 50%, #13171F 100%); background-attachment: fixed;">
+
+<!-- Global Header Placeholder -->
+<div id="header-placeholder"></div>
+
+<section id="hero" class="relative min-h-screen overflow-hidden border-b border-white/10" style="padding-top: 80px;">
+    <!-- Video Background -->
+    <div class="absolute inset-0 w-full h-full">
+        <!-- Primary Video Element -->
+        <video 
+            id="hero-video"
+            class="absolute inset-0 w-full h-full object-cover" 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            webkit-playsinline
+            preload="auto"
+            poster="https://storage.googleapis.com/uxpilot-auth.appspot.com/4956c3b6e4-3d53a61de0b0cf080ceb.png">
+            <!-- Direct path to video in repository -->
+            <source src="hero-background.mp4" type="video/mp4">
+            <!-- GitHub raw content URLs as fallback -->
+            <source src="https://raw.githubusercontent.com/websies-melwin/websies-new-website/master/hero-background.mp4" type="video/mp4">
+            <source src="https://raw.githubusercontent.com/bjcwheller-coder/Websies-website/master/hero-background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Fallback Background Image (shows if video fails) -->
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" 
+             style="background-image: url('https://storage.googleapis.com/uxpilot-auth.appspot.com/4956c3b6e4-3d53a61de0b0cf080ceb.png'); z-index: -1;">
+        </div>
+    </div>
+    
+    <!-- Overlay Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-dark/70 via-dark/60 to-dark/70"></div>
+    
+    <!-- JavaScript to ensure video plays -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('hero-video');
+            if (video) {
+                // Try to play the video
+                video.play().catch(function(error) {
+                    console.log('Video autoplay failed:', error);
+                    // If autoplay fails, try playing on user interaction
+                    document.addEventListener('click', function playVideo() {
+                        video.play();
+                        document.removeEventListener('click', playVideo);
+                    }, { once: true });
+                });
+                
+                // Ensure video is visible
+                video.style.display = 'block';
+                video.style.opacity = '1';
+            }
+        });
+    </script>
+    
+    <div class="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto">
+            <!-- Small Badge -->
+            <div class="mb-8">
+                <div class="inline-block bg-accent/10 backdrop-blur-sm border border-accent/20 rounded-full px-6 py-2">
+                    <span class="text-accent font-montserrat font-semibold text-sm">🎁 FREE Demo Available</span>
+                </div>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-white mb-6 leading-tight">
+                Your Website.<br>
+                <span class="text-gradient">Done in 7 Days.</span><br>
+                <span class="text-accent">£47/month.</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto font-inter">
+                Professional websites for modern businesses. Zero upfront fees. Cancel anytime.<br>
+                <span class="text-accent font-semibold">Join 500+ entrepreneurs who chose different.</span>
+            </p>
+            
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a href="pricing.html" class="gradient-primary text-white px-8 py-4 rounded-full font-montserrat font-bold text-base hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
+                    <i class="fa-solid fa-gift mr-2"></i>
+                    <span>Get Your FREE Demo</span>
+                </a>
+                <button class="border-2 border-accent text-accent px-8 py-4 rounded-full font-montserrat font-semibold text-base hover:bg-accent hover:text-dark transition-all duration-300">
+                    <i class="fa-solid fa-eye mr-2"></i>
+                    <span>See How It Works</span>
+                </button>
+            </div>
+            
+            <p class="text-white/70 font-inter text-sm mb-12">
+                💡 <span class="text-accent">Zero risk:</span> See exactly how your website will look before paying anything
+            </p>
+            
+            <!-- Stats -->
+            <div class="flex justify-center gap-x-12">
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-white mb-1">7</div>
+                    <div class="text-accent font-inter text-sm">Days Delivery</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-white mb-1">£47</div>
+                    <div class="text-accent font-inter text-sm">Per Month</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-white mb-1">500+</div>
+                    <div class="text-accent font-inter text-sm">Happy Clients</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <i class="fa-solid fa-chevron-down text-white/60 text-xl animate-bounce"></i>
+    </div>
+</section>
+
+<section id="benefits" class="py-16 md:py-20 relative overflow-hidden bg-gradient-to-b from-transparent via-[var(--bg-surface)]/20 to-transparent border-b border-white/10">
+    <!-- Dynamic background gradient -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-l from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative">
+        <!-- Compact, impactful header -->
+        <div class="text-center mb-12 px-4">
+            <div class="inline-block bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6">
+                <span class="text-accent font-montserrat font-semibold text-sm">✨ 500+ Businesses Trust Us</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                The <span class="text-gradient">Websies</span> Difference
+            </h2>
+        </div>
+        
+        <!-- Bento Grid Layout -->
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+            <!-- Main Hero Stats - Large Card -->
+            <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-accent/30 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-rocket text-xl text-accent"></i>
+                        </div>
+                        <h3 class="text-2xl font-montserrat font-bold text-white">Why We're Different</h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-4xl font-montserrat font-bold text-gradient mb-2">7</div>
+                            <div class="text-white/60 font-inter text-sm">Days to Launch</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-montserrat font-bold text-gradient mb-2">£47</div>
+                            <div class="text-white/60 font-inter text-sm">Per Month</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-montserrat font-bold text-gradient mb-2">£0</div>
+                            <div class="text-white/60 font-inter text-sm">Upfront Cost</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <p class="text-white/70 font-inter text-sm">
+                            While agencies charge £5,000+ upfront and take 3 months, we deliver in days with zero setup fees. 
+                            <span class="text-accent font-semibold">See your website before paying a penny.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust Indicators -->
+            <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/5 backdrop-blur-sm border border-green-500/20 rounded-2xl p-6 relative overflow-hidden group hover:border-green-400/40 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-green-400/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-500/20 to-emerald-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-lock text-lg text-green-400"></i>
+                        </div>
+                        <h4 class="text-lg font-montserrat font-bold text-white">Risk-Free</h4>
+                    </div>
+                    <ul class="space-y-3 mb-4">
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                            <span class="text-white/70 font-inter text-sm">FREE demo first</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                            <span class="text-white/70 font-inter text-sm">Cancel anytime</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                            <span class="text-white/70 font-inter text-sm">No contracts</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-green-400 text-xs"></i>
+                            <span class="text-white/70 font-inter text-sm">Money back guarantee</span>
+                        </li>
+                    </ul>
+                    <div class="pt-3 border-t border-green-500/20">
+                        <p class="text-green-400/80 font-inter text-xs italic">
+                            "Zero commitment. Maximum confidence."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Speed Highlight -->
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/5 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-6 relative overflow-hidden group hover:border-cyan-400/40 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-bolt text-lg text-cyan-400"></i>
+                        </div>
+                        <h4 class="text-lg font-montserrat font-bold text-white">Lightning Fast</h4>
+                    </div>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-white/70 font-inter text-sm">Design</span>
+                            <span class="text-cyan-400 font-montserrat font-semibold text-sm">24h</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white/70 font-inter text-sm">Development</span>
+                            <span class="text-cyan-400 font-montserrat font-semibold text-sm">3-5 days</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white/70 font-inter text-sm">Launch</span>
+                            <span class="text-cyan-400 font-montserrat font-semibold text-sm">Day 7</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white/70 font-inter text-sm">Updates</span>
+                            <span class="text-cyan-400 font-montserrat font-semibold text-sm">24-48h</span>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-cyan-500/20">
+                        <p class="text-cyan-400/80 font-inter text-xs italic">
+                            "Speed is our competitive advantage."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Design -->
+            <div class="bg-gradient-to-br from-purple-500/10 to-pink-500/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 relative overflow-hidden group hover:border-purple-400/40 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-400/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-palette text-lg text-purple-400"></i>
+                        </div>
+                        <h4 class="text-lg font-montserrat font-bold text-white">100% Custom</h4>
+                    </div>
+                    <p class="text-white/70 font-inter text-sm mb-4">
+                        No templates. Every pixel designed for your brand.
+                    </p>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg"></div>
+                        <div class="w-6 h-6 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-lg"></div>
+                        <div class="w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-400 rounded-lg"></div>
+                        <div class="w-6 h-6 bg-gradient-to-br from-orange-400 to-red-400 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Support -->
+            <div class="bg-gradient-to-br from-orange-500/10 to-red-500/5 backdrop-blur-sm border border-orange-500/20 rounded-2xl p-6 relative overflow-hidden group hover:border-orange-400/40 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-orange-400/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-orange-500/20 to-red-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-headset text-lg text-orange-400"></i>
+                        </div>
+                        <h4 class="text-lg font-montserrat font-bold text-white">Always Available</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-white/70 font-inter text-sm">Live chat support</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-white/70 font-inter text-sm">Direct designer access</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-white/70 font-inter text-sm">Unlimited updates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <!-- Technology -->
+            <div class="md:col-span-2 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 backdrop-blur-sm border border-yellow-500/20 rounded-2xl p-6 relative overflow-hidden group hover:border-yellow-400/40 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-yellow-400/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500/20 to-amber-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-trophy text-xl text-yellow-400"></i>
+                        </div>
+                        <h4 class="text-2xl font-montserrat font-bold text-white">Proven Track Record</h4>
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-montserrat font-bold text-yellow-400">500+</div>
+                            <div class="text-white/60 font-inter text-xs">Happy Clients</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-montserrat font-bold text-yellow-400">4.9/5</div>
+                            <div class="text-white/60 font-inter text-xs">Satisfaction</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-montserrat font-bold text-yellow-400">98%</div>
+                            <div class="text-white/60 font-inter text-xs">Retention</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-montserrat font-bold text-yellow-400">1000+</div>
+                            <div class="text-white/60 font-inter text-xs">Websites Built</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Features Bar -->
+        <div class="max-w-5xl mx-auto mb-12">
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
+                <div class="flex items-center space-x-2 group">
+                    <i class="fa-solid fa-check-circle text-accent text-xs group-hover:scale-110 transition-transform"></i>
+                    <span class="text-white/70 font-inter group-hover:text-white transition-colors">SEO Optimized</span>
+                </div>
+                <div class="flex items-center space-x-2 group">
+                    <i class="fa-solid fa-check-circle text-accent text-xs group-hover:scale-110 transition-transform"></i>
+                    <span class="text-white/70 font-inter group-hover:text-white transition-colors">Hosting Included</span>
+                </div>
+                <div class="flex items-center space-x-2 group">
+                    <i class="fa-solid fa-check-circle text-accent text-xs group-hover:scale-110 transition-transform"></i>
+                    <span class="text-white/70 font-inter group-hover:text-white transition-colors">SSL Certificate</span>
+                </div>
+                <div class="flex items-center space-x-2 group">
+                    <i class="fa-solid fa-check-circle text-accent text-xs group-hover:scale-110 transition-transform"></i>
+                    <span class="text-white/70 font-inter group-hover:text-white transition-colors">Analytics Setup</span>
+                </div>
+                <div class="flex items-center space-x-2 group">
+                    <i class="fa-solid fa-check-circle text-accent text-xs group-hover:scale-110 transition-transform"></i>
+                    <span class="text-white/70 font-inter group-hover:text-white transition-colors">Social Integration</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="text-center">
+            <div class="inline-block">
+                <h3 class="text-2xl font-montserrat font-bold text-white mb-4">
+                    See Your Website Before You Pay!
+                </h3>
+                <p class="text-white/70 font-inter mb-8 max-w-2xl mx-auto">
+                    Get a <span class="text-accent font-semibold">FREE demo</span> of exactly how your website will look - zero commitment required
+                </p>
+                <a href="pricing.html" class="gradient-primary text-white px-10 py-4 rounded-full font-montserrat font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
+                    <i class="fa-solid fa-gift mr-2"></i>
+                    Get My FREE Demo Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="process" class="py-16 md:py-20 relative overflow-hidden border-b border-white/10" style="background: linear-gradient(135deg, rgba(60, 60, 65, 0.2) 0%, rgba(50, 50, 55, 0.25) 50%, rgba(55, 55, 60, 0.2) 100%)">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 relative">
+        <div class="text-center mb-12 px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                <span>Our Process</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
+                <span>7 days. That's it.</span>
+            </p>
+        </div>
+        
+        <!-- Simple Process List -->
+        <div class="max-w-3xl mx-auto mb-16">
+            <div class="space-y-6">
+                <!-- Step 1 -->
+                <div class="flex items-start space-x-6 group">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-xl flex items-center justify-center">
+                            <span class="text-cyan-400 font-montserrat font-bold">1</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h3 class="text-lg font-montserrat font-bold text-white">Brief</h3>
+                            <span class="text-xs text-cyan-400 font-inter bg-cyan-500/10 px-2 py-1 rounded-full">Day 1</span>
+                        </div>
+                        <p class="text-white/60 font-inter text-sm">
+                            30-minute call to understand your business and vision. We keep it simple and focused.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex items-start space-x-6 group">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-xl flex items-center justify-center">
+                            <span class="text-purple-400 font-montserrat font-bold">2</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h3 class="text-lg font-montserrat font-bold text-white">Design & Build</h3>
+                            <span class="text-xs text-purple-400 font-inter bg-purple-500/10 px-2 py-1 rounded-full">Day 2-5</span>
+                        </div>
+                        <p class="text-white/60 font-inter text-sm">
+                            We craft your custom website with daily progress updates. No templates, pure creativity.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex items-start space-x-6 group">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/10 rounded-xl flex items-center justify-center">
+                            <span class="text-green-400 font-montserrat font-bold">3</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h3 class="text-lg font-montserrat font-bold text-white">Review</h3>
+                            <span class="text-xs text-green-400 font-inter bg-green-500/10 px-2 py-1 rounded-full">Day 6</span>
+                        </div>
+                        <p class="text-white/60 font-inter text-sm">
+                            Preview your website, request changes, and approve. Unlimited revisions included.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="flex items-start space-x-6 group">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-xl flex items-center justify-center">
+                            <span class="text-yellow-400 font-montserrat font-bold">4</span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h3 class="text-lg font-montserrat font-bold text-white">Launch</h3>
+                            <span class="text-xs text-yellow-400 font-inter bg-yellow-500/10 px-2 py-1 rounded-full">Day 7</span>
+                        </div>
+                        <p class="text-white/60 font-inter text-sm">
+                            Your website goes live with hosting, SSL, and ongoing support included.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Simple Features -->
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-check-circle text-accent text-xs"></i>
+                    <span class="text-white/70 font-inter">Custom Design</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-check-circle text-accent text-xs"></i>
+                    <span class="text-white/70 font-inter">Mobile Responsive</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-check-circle text-accent text-xs"></i>
+                    <span class="text-white/70 font-inter">SEO Optimized</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-check-circle text-accent text-xs"></i>
+                    <span class="text-white/70 font-inter">Hosting Included</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-check-circle text-accent text-xs"></i>
+                    <span class="text-white/70 font-inter">Unlimited Updates</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="pricing.html" class="gradient-primary text-white px-10 py-4 rounded-full font-montserrat font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
+                Start Your 7-Day Journey
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="who-its-for" class="py-16 md:py-20 section-modern relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/4 right-20 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-20 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4 md:mb-6">
+                <span>Who It's Perfect For</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/80 max-w-3xl mx-auto font-inter">
+                From cozy cafés to cutting-edge startups, we create websites that convert visitors into customers.
+            </p>
+        </div>
+        
+        <!-- Simplified Main Industries -->
+        <div class="max-w-5xl mx-auto mb-16">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Cafés & Restaurants -->
+                <div class="modern-card p-6 group hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-orange-500/20 to-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-utensils text-xl text-orange-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-montserrat font-bold text-white mb-2">Cafés & Restaurants</h3>
+                            <p class="text-white/60 font-inter text-sm mb-3">
+                                Transform your culinary vision into a digital experience that attracts hungry customers.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs text-orange-400/80 font-inter">• Online Menus</span>
+                                <span class="text-xs text-orange-400/80 font-inter">• Reservations</span>
+                                <span class="text-xs text-orange-400/80 font-inter">• Local SEO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barbers & Salons -->
+                <div class="modern-card p-6 group hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-scissors text-xl text-blue-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-montserrat font-bold text-white mb-2">Barbers & Salons</h3>
+                            <p class="text-white/60 font-inter text-sm mb-3">
+                                Showcase your style and skill with a website that books appointments automatically.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs text-blue-400/80 font-inter">• Online Booking</span>
+                                <span class="text-xs text-blue-400/80 font-inter">• Portfolio</span>
+                                <span class="text-xs text-blue-400/80 font-inter">• Reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Local Shops -->
+                <div class="modern-card p-6 group hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-green-500/20 to-emerald-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-store text-xl text-green-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-montserrat font-bold text-white mb-2">Local Shops</h3>
+                            <p class="text-white/60 font-inter text-sm mb-3">
+                                Bring your local business online with a professional storefront that drives foot traffic.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs text-green-400/80 font-inter">• Product Showcase</span>
+                                <span class="text-xs text-green-400/80 font-inter">• Inventory</span>
+                                <span class="text-xs text-green-400/80 font-inter">• E-commerce</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Startups -->
+                <div class="modern-card p-6 group hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-rocket text-xl text-purple-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-montserrat font-bold text-white mb-2">Startups</h3>
+                            <p class="text-white/60 font-inter text-sm mb-3">
+                                Launch your vision with a website that scales as fast as your ambitions.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs text-purple-400/80 font-inter">• Landing Pages</span>
+                                <span class="text-xs text-purple-400/80 font-inter">• SaaS</span>
+                                <span class="text-xs text-purple-400/80 font-inter">• Investor Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Industries - Simple Text -->
+        <div class="text-center mb-12">
+            <p class="text-white/70 font-inter text-sm">
+                We also work with 
+                <span class="text-yellow-400">Professional Services</span>, 
+                <span class="text-teal-400">Healthcare</span>, 
+                <span class="text-pink-400">Creative Agencies</span>, 
+                <span class="text-indigo-400">Education</span>, 
+                and many more industries
+            </p>
+        </div>
+
+        <!-- Bottom CTA - Simplified -->
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-montserrat font-bold text-white mb-4">
+                    Whatever Your Industry, We've Got You Covered
+                </h3>
+                <p class="text-white/70 font-inter leading-relaxed">
+                    Our custom approach ensures your website doesn't just look amazing – it drives real business results.
+                    Join 500+ businesses across every industry who chose Websies.
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-8 mb-8">
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-accent">100%</div>
+                    <div class="text-white/60 font-inter text-sm">Custom Design</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-accent">500+</div>
+                    <div class="text-white/60 font-inter text-sm">Industries Served</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-accent">7 Days</div>
+                    <div class="text-white/60 font-inter text-sm">To Launch</div>
+                </div>
+            </div>
+            
+            <a href="pricing.html" class="gradient-primary text-white px-10 py-4 rounded-full font-montserrat font-bold text-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 glow-primary inline-block">
+                <i class="fa-solid fa-rocket mr-2"></i>
+                Start Your Website Journey
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="testimonials" class="py-16 md:py-20 relative overflow-hidden border-b border-white/10" style="background: linear-gradient(135deg, rgba(60, 60, 65, 0.2) 0%, rgba(50, 50, 55, 0.25) 50%, rgba(55, 55, 60, 0.2) 100%)">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative">
+        <div class="text-center mb-12 px-4">
+            <div class="inline-block bg-gradient-to-r from-purple-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6">
+                <span class="text-accent font-montserrat font-semibold text-sm">✨ Real Client Stories</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                <span>What Clients Say About Us</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
+                500+ happy entrepreneurs trust us with their online presence
+            </p>
+        </div>
+        
+        <!-- Featured Testimonial -->
+        <div class="max-w-4xl mx-auto mb-16">
+            <div class="relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-10">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-6 mb-6">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Sarah Chen" class="w-20 h-20 rounded-2xl ring-2 ring-accent/30">
+                    <div class="flex-1">
+                        <h4 class="text-xl font-montserrat font-bold text-white mb-1">Sarah Chen</h4>
+                        <p class="text-accent font-inter text-sm mb-2">Founder, Chen's Café</p>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="text-white/60 font-inter text-xs mb-2">Results after launch:</span>
+                        <span class="text-2xl font-montserrat font-bold text-green-400">+40% bookings</span>
+                    </div>
+                </div>
+                <p class="text-white/80 font-inter text-lg leading-relaxed">
+                    "Websies delivered exactly what they promised. Our café website was <span class="text-accent font-semibold">live in 6 days</span> and bookings increased by 40% in the first month! The design is stunning and our customers love the easy booking system."
+                </p>
+            </div>
+        </div>
+        
+        <!-- Testimonial Grid - Simplified -->
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <!-- Testimonial 1 -->
+            <div class="group relative">
+                <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-accent/30 transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Marcus Johnson" class="w-12 h-12 rounded-xl">
+                        <div class="flex-1">
+                            <h5 class="font-montserrat font-bold text-white">Marcus Johnson</h5>
+                            <p class="text-white/60 font-inter text-xs">Startup Founder</p>
+                        </div>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white/70 font-inter text-sm">
+                        "As a startup, budget was tight. Websies gave us a <span class="text-accent">premium website for the cost of a fancy dinner</span>. Absolute game-changer!"
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="group relative">
+                <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-green-400/30 transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-7.jpg" alt="Emma Rodriguez" class="w-12 h-12 rounded-xl">
+                        <div class="flex-1">
+                            <h5 class="font-montserrat font-bold text-white">Emma Rodriguez</h5>
+                            <p class="text-white/60 font-inter text-xs">Boutique Owner</p>
+                        </div>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white/70 font-inter text-sm">
+                        "The quality is incredible. My boutique website <span class="text-green-400">looks more expensive than sites costing £10k+</span>. Plus, the updates are instant!"
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="group relative">
+                <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-purple-400/30 transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="David Park" class="w-12 h-12 rounded-xl">
+                        <div class="flex-1">
+                            <h5 class="font-montserrat font-bold text-white">David Park</h5>
+                            <p class="text-white/60 font-inter text-xs">Barber Shop Owner</p>
+                        </div>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white/70 font-inter text-sm">
+                        "From inquiry to live website in <span class="text-purple-400">7 days</span>. The booking system works perfectly and my clients love the modern design!"
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="group relative">
+                <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-orange-400/30 transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Lisa Thompson" class="w-12 h-12 rounded-xl">
+                        <div class="flex-1">
+                            <h5 class="font-montserrat font-bold text-white">Lisa Thompson</h5>
+                            <p class="text-white/60 font-inter text-xs">Fitness Coach</p>
+                        </div>
+                        <div class="flex text-yellow-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-white/70 font-inter text-sm">
+                        "I was skeptical about the price, but the result exceeded my expectations. <span class="text-orange-400">My coaching business has doubled</span> since launching!"
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Bar -->
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-x-12 gap-y-6 py-8 border-t border-white/10">
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-gradient mb-1">4.9/5</div>
+                    <div class="text-white/60 font-inter text-sm">Average Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-gradient mb-1">500+</div>
+                    <div class="text-white/60 font-inter text-sm">Happy Clients</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-gradient mb-1">98%</div>
+                    <div class="text-white/60 font-inter text-sm">Client Retention</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-gradient mb-1">1000+</div>
+                    <div class="text-white/60 font-inter text-sm">Websites Built</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="comparison" class="py-16 md:py-20 section-modern relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0">
+        <div class="absolute top-20 left-1/3 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-1/3 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4 md:mb-6">
+                Why Choose <span class="text-gradient">Websies</span>?
+            </h2>
+            <p class="text-base md:text-lg text-white/80 max-w-3xl mx-auto font-inter">
+                See the difference between smart and expensive
+            </p>
+        </div>
+        
+        <!-- Minimal Comparison Table with DIY Platforms -->
+        <div class="max-w-6xl mx-auto mb-12">
+            <div class="modern-card overflow-hidden">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th class="p-6 text-left">
+                                <span class="text-white/60 font-inter font-normal text-sm">Compare</span>
+                            </th>
+                            <th class="p-6 text-center">
+                                <div class="inline-flex items-center space-x-2">
+                                    <span class="font-montserrat font-bold text-white">Websies</span>
+                                </div>
+                                <div class="text-accent text-xs font-inter mt-1">Done-For-You</div>
+                            </th>
+                            <th class="p-6 text-center">
+                                <span class="font-montserrat text-white/70">DIY Platforms</span>
+                                <div class="text-white/40 text-xs font-inter mt-1">Wix, Squarespace</div>
+                            </th>
+                            <th class="p-6 text-center">
+                                <span class="font-montserrat text-white/60">Agencies</span>
+                                <div class="text-white/40 text-xs font-inter mt-1">Traditional</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-clock text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Time to Launch</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">7 Days</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">30-60 Days</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">8-16 Weeks</span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-pound-sign text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Your Expense</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">£47/month</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">£15-25/month</span>
+                                <div class="text-white/30 text-xs mt-1">+ Your time</div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">£2,000-10,000</span>
+                                <div class="text-white/30 text-xs mt-1">+ £30-50/month maintenance</div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-user-clock text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Your Time Required</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">30 mins</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">100+ hours</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">20+ hours</span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-palette text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Design Quality</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">Professional</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">Template-based</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">Professional</span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-sync text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Updates & Changes</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">Unlimited</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">DIY Forever</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">£100-500/hour</span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-headset text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Support</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">24/7 Direct</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">Forums Only</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">Business Hours</span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-6">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check-circle text-white/40 text-sm"></i>
+                                    <span class="text-white/80 font-inter">Success Rate</span>
+                                </div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-accent font-semibold">98%</span>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">~30%</span>
+                                <div class="text-white/30 text-xs mt-1">Most give up</div>
+                            </td>
+                            <td class="p-6 text-center">
+                                <span class="text-white/50">~70%</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Value Proposition -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <p class="text-2xl font-montserrat font-bold text-white mb-4">
+                The smart choice is clear: <span class="text-accent">Professional results</span> without the professional price tag
+            </p>
+            <p class="text-white/70 font-inter">
+                Skip the learning curve, avoid agency fees, and get your business online in just 7 days.
+            </p>
+        </div>
+        
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="pricing.html" class="gradient-primary text-white px-10 py-4 rounded-full font-montserrat font-bold text-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
+                <i class="fa-solid fa-gift mr-2"></i>
+                Get Your FREE Demo
+            </a>
+            <p class="text-white/60 font-inter text-sm mt-4">
+                See exactly what you'll get before paying anything
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="py-16 md:py-20 relative overflow-hidden border-b border-white/10" style="background: linear-gradient(135deg, rgba(60, 60, 65, 0.2) 0%, rgba(50, 50, 55, 0.25) 50%, rgba(55, 55, 60, 0.2) 100%)">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4 md:mb-6">
+                Simple <span class="text-gradient">Pricing</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/80 max-w-3xl mx-auto font-inter">
+                Choose the plan that fits your business needs
+            </p>
+        </div>
+        
+        <!-- Two Pricing Cards - Clean and Symmetrical -->
+        <div class="max-w-5xl mx-auto mb-12">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Standard Plan -->
+                <div class="modern-card p-8 md:p-10 text-center">
+                    <!-- Plan Header -->
+                    <div class="mb-8">
+                        <div class="inline-block bg-accent/10 rounded-full px-4 py-2 mb-4">
+                            <span class="text-accent font-montserrat font-semibold text-sm">MOST POPULAR</span>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-4">Standard Plan</h3>
+                        <div class="flex items-end justify-center mb-2">
+                            <span class="text-5xl font-montserrat font-bold text-white">£47</span>
+                            <span class="text-lg text-white/60 mb-2 ml-1">/month</span>
+                        </div>
+                        <p class="text-white/60 font-inter text-sm">Perfect for most businesses</p>
+                    </div>
+                    
+                    <!-- Features List -->
+                    <div class="mb-8 min-h-[200px]">
+                        <div class="space-y-3 text-left">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">7-day delivery</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">Custom design</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">Unlimited updates</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">Hosting & SSL included</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">Mobile responsive</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">SEO optimized</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-accent text-sm"></i>
+                                <span class="text-white/80 font-inter text-sm">24/7 support</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA -->
+                    <a href="pricing.html" class="gradient-primary text-white px-8 py-3 rounded-full font-montserrat font-semibold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block w-full">
+                        <i class="fa-solid fa-gift mr-2"></i>
+                        Get Your FREE Demo
+                    </a>
+                    <p class="text-white/60 font-inter text-xs mt-3">
+                        See your website before paying
+                    </p>
+                </div>
+                
+                <!-- Custom Plan -->
+                <div class="modern-card p-8 md:p-10 text-center relative overflow-hidden">
+                    <!-- Subtle gradient overlay for differentiation -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5"></div>
+                    <div class="relative z-10">
+                        <!-- Plan Header -->
+                        <div class="mb-8">
+                            <div class="inline-block bg-purple-500/10 rounded-full px-4 py-2 mb-4">
+                                <span class="text-purple-400 font-montserrat font-semibold text-sm">ENTERPRISE</span>
+                            </div>
+                            <h3 class="text-xl font-montserrat font-bold text-white mb-4">Custom Plan</h3>
+                            <div class="flex items-end justify-center mb-2">
+                                <span class="text-5xl font-montserrat font-bold text-white">Custom</span>
+                            </div>
+                            <p class="text-white/60 font-inter text-sm">For complex projects</p>
+                        </div>
+                        
+                        <!-- Features List -->
+                        <div class="mb-8 min-h-[200px]">
+                            <div class="space-y-3 text-left">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Everything in Standard</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">E-commerce functionality</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Advanced integrations</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Multi-language support</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Priority support</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Dedicated manager</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-check text-purple-400 text-sm"></i>
+                                    <span class="text-white/80 font-inter text-sm">Custom development</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA -->
+                        <a href="#contact" class="bg-purple-500/20 border border-purple-500/30 text-white px-8 py-3 rounded-full font-montserrat font-semibold hover:bg-purple-500/30 hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block w-full">
+                            <i class="fa-solid fa-phone mr-2"></i>
+                            Contact Us
+                        </a>
+                        <p class="text-white/60 font-inter text-xs mt-3">
+                            Get a custom quote today
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Value Comparison - Simple Stats -->
+        <div class="max-w-3xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-white mb-1">7</div>
+                    <div class="text-white/60 font-inter text-sm">Days to launch</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-accent mb-1">£47</div>
+                    <div class="text-white/60 font-inter text-sm">Per month</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-montserrat font-bold text-green-400 mb-1">500+</div>
+                    <div class="text-white/60 font-inter text-sm">Happy clients</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-16 md:py-20 section-modern relative overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/2 left-10 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-20 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 relative">
+        <div class="text-center mb-12 px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                Frequently Asked <span class="text-gradient">Questions</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
+                Everything you need to know
+            </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-accent/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            What's included in the £47/month?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Everything. Custom design, hosting, SSL certificate, unlimited updates, mobile optimization, SEO basics, and 24/7 support. No hidden fees ever.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-cyan-400/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            Do you really deliver in 7 days?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Yes. We've streamlined our process to deliver professional websites in 7 days or less. If we don't meet this deadline, your first month is free.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-green-400/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            Can I cancel anytime?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Absolutely. No contracts, no cancellation fees. Cancel anytime with 30 days notice. We'll even help you export your website if needed.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-purple-400/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            How do updates work?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Simply email us your changes and we'll implement them within 24-48 hours. Text updates, image changes, new pages - all included in your monthly plan.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-orange-400/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            Do you build e-commerce websites?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Yes. E-commerce functionality is available in our Custom plan. We integrate with Shopify, WooCommerce, and other platforms. Contact us for details.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="group">
+                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-yellow-400/20 transition-all duration-300">
+                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
+                            Will my website work on mobile?
+                        </h3>
+                        <p class="text-white/70 font-inter text-sm leading-relaxed">
+                            Every website we build is fully responsive and optimized for all devices. We test on all screen sizes to ensure perfect performance everywhere.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <p class="text-white/60 font-inter text-sm mb-4">Still have questions?</p>
+            <a href="mailto:hello@websies.co.uk" class="text-accent hover:text-white font-inter font-medium transition-colors">
+                Email us directly →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="referral" class="relative overflow-hidden py-16 md:py-20 border-b border-white/10" style="background: linear-gradient(135deg, rgba(60, 60, 65, 0.2) 0%, rgba(50, 50, 55, 0.25) 50%, rgba(55, 55, 60, 0.2) 100%)">
+    <div class="absolute inset-0">
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    <!-- Subtle animated background -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-yellow-500/20 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-64 h-64 bg-gradient-to-r from-orange-500/20 to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <!-- Simplified Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                Earn <span class="text-gradient">£47</span> Per Referral
+            </h2>
+            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
+                Get paid for every business you refer that signs up
+            </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+            <!-- Single Clean Card -->
+            <div class="modern-card p-8 md:p-10 text-center mb-12">
+                <div class="mb-8">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-full mb-6">
+                        <i class="fa-solid fa-coins text-3xl text-yellow-400"></i>
+                    </div>
+                    
+                    <h3 class="text-2xl font-montserrat font-bold text-white mb-3">Simple Partner Program</h3>
+                    <p class="text-white/60 font-inter max-w-2xl mx-auto">
+                        Earn the equivalent of a full month's subscription for every successful referral. 
+                        No complicated tiers, no earning caps, just simple rewards.
+                    </p>
+                </div>
+                
+                <!-- How It Works - Horizontal Steps -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-400/20 to-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <span class="text-accent font-bold">1</span>
+                        </div>
+                        <h4 class="font-montserrat font-semibold text-white mb-1">Share</h4>
+                        <p class="text-white/50 font-inter text-sm">Recommend Websies to businesses</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-400/20 to-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <span class="text-accent font-bold">2</span>
+                        </div>
+                        <h4 class="font-montserrat font-semibold text-white mb-1">They Sign Up</h4>
+                        <p class="text-white/50 font-inter text-sm">Using your referral code</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-400/20 to-orange-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <span class="text-yellow-400 font-bold">£</span>
+                        </div>
+                        <h4 class="font-montserrat font-semibold text-white mb-1">Get Paid</h4>
+                        <p class="text-white/50 font-inter text-sm">£47 instantly credited</p>
+                    </div>
+                </div>
+                
+                <!-- Key Benefits - Text Only -->
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm mb-8">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
+                        <span class="text-white/70">No earning limits</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
+                        <span class="text-white/70">24-hour approval</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
+                        <span class="text-white/70">Monthly payouts</span>
+                    </div>
+                </div>
+                
+                <!-- Single CTA -->
+                <a href="pricing.html" class="gradient-primary text-white px-8 py-3 rounded-full font-montserrat font-semibold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
+                    <i class="fa-solid fa-rocket mr-2"></i>
+                    Start Earning Today
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="final-cta" class="py-16 md:py-20 section-modern relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/3 w-96 h-96 bg-gradient-to-r from-accent/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 text-center relative">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-6">
+                Ready to <span class="text-gradient">Get Started?</span>
+            </h2>
+            
+            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter mb-12">
+                Join 500+ businesses with professional websites. 7 days delivery, £47/month.
+            </p>
+            
+            <!-- Simple CTA -->
+            <div class="mb-12">
+                <a href="pricing.html" class="gradient-primary text-white px-12 py-5 rounded-full font-montserrat font-bold text-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block mb-4">
+                    Get Your FREE Demo
+                </a>
+                <p class="text-white/60 font-inter text-sm">
+                    See your website before paying anything
+                </p>
+            </div>
+            
+            <!-- Simple Stats -->
+            <div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+                <div>
+                    <div class="text-2xl font-montserrat font-bold text-white">7 Days</div>
+                    <div class="text-white/60 font-inter text-xs">Delivery</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-montserrat font-bold text-white">£47/mo</div>
+                    <div class="text-white/60 font-inter text-xs">All Inclusive</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-montserrat font-bold text-white">£0</div>
+                    <div class="text-white/60 font-inter text-xs">Upfront</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-montserrat font-bold text-white">500+</div>
+                    <div class="text-white/60 font-inter text-xs">Happy Clients</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Global Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('#hero video');
+    if (video) {
+        // Ensure video plays on load
+        video.play().catch(function(error) {
+            console.log('Video autoplay failed:', error);
+        });
+        
+        // Fallback: try to play video on user interaction
+        document.addEventListener('click', function() {
+            if (video.paused) {
+                video.play().catch(function(error) {
+                    console.log('Video play failed:', error);
+                });
+            }
+        }, { once: true });
+    }
+});
+
+// Mobile Menu Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        const menuIcon = mobileMenuBtn.querySelector('svg');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            }
+        });
+    }
+});
+</script>
+
+</body></html>
