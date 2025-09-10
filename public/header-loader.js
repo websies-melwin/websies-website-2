@@ -63,7 +63,7 @@ function loadHeaderDirectly() {
             <a href="index.html#process" data-nav="process" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Process</a>
             <a href="pricing.html" data-nav="pricing" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Pricing</a>
             <a href="index.html#testimonials" data-nav="testimonials" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Reviews</a>
-            <a href="index.html#contact" data-nav="contact" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Contact</a>
+            <a href="index.html#faq" data-nav="faq" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">FAQ</a>
         </nav>
         
         <!-- CTA Button and User Menu -->
@@ -102,7 +102,7 @@ function loadHeaderDirectly() {
             <a href="index.html#process" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Process</a>
             <a href="pricing.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Pricing</a>
             <a href="index.html#testimonials" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Reviews</a>
-            <a href="index.html#contact" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Contact</a>
+            <a href="index.html#faq" class="block text-white/70 hover:text-accent font-inter text-sm py-2">FAQ</a>
             <div class="pt-4 border-t border-white/10">
                 <div id="mobileLoginBtn" class="flex items-center justify-center py-3 cursor-pointer group" onclick="openLoginModal()">
                     <i class="fas fa-user-circle text-[var(--accent-cyan)] text-3xl hover:opacity-80 transition-all"></i>
