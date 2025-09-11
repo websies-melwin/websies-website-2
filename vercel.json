@@ -1,5 +1,18 @@
 {
-  "buildCommand": "echo 'No build required'",
+  "buildCommand": false,
   "outputDirectory": "public",
-  "framework": null
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
 }
