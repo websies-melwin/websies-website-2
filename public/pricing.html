@@ -367,245 +367,444 @@
 <!-- Global Header Placeholder -->
 <div id="header-placeholder"></div>
 
-<!-- Hero Section - Matching Home Page Style -->
-<section class="relative min-h-[60vh] overflow-hidden" style="padding-top: 80px;">
-    <!-- Background Glow Effects -->
-    <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-transparent rounded-full blur-3xl"></div>
+<!-- Hero Section - Balanced Bold Style -->
+<section class="relative min-h-[90vh] overflow-hidden border-b border-white/10" style="padding-top: 80px;">
+    <!-- Moderate Background -->
+    <div class="absolute inset-0">
+        <!-- Two subtle gradients -->
+        <div class="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/10 via-pink-500/8 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-l from-cyan-500/10 via-blue-500/8 to-transparent rounded-full blur-3xl"></div>
     </div>
     
-    <div class="container mx-auto px-4 sm:px-6 relative z-10 py-20">
-        <div class="text-center max-w-4xl mx-auto">
+    <div class="relative min-h-[90vh] flex items-center justify-center text-center px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto">
+            <!-- Enhanced Badge -->
+            <div class="mb-8">
+                <div class="inline-block bg-gradient-to-r from-purple-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2">
+                    <span class="text-white/70 font-montserrat font-semibold text-sm">No Hidden Fees • No Contracts • Cancel Anytime</span>
+                </div>
+            </div>
+            
+            <!-- Balanced Heading -->
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-white mb-6 leading-tight">
-                Simple, <span class="text-gradient">Transparent</span> Pricing
+                Simple, Transparent Pricing<br>
+                <span class="text-gradient">£47/month.</span>
+                <span class="text-accent"> Everything Included.</span>
             </h1>
-            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto font-inter">
-                No hidden fees. No contracts. Cancel anytime.<br>
-                See your website demo before paying anything.
+            
+            <!-- Clear Subtitle -->
+            <p class="text-lg md:text-xl text-white/80 mb-12 max-w-3xl mx-auto font-inter">
+                Get a professional website that grows your business.<br>
+                <span class="text-accent/90">See your exact website before paying anything.</span>
             </p>
             
-            <!-- Key Value Props - Like Home Page -->
-            <div class="flex flex-wrap justify-center gap-8 md:gap-12">
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-white mb-2">7</div>
-                    <div class="text-white/60 font-inter">Days to Launch</div>
+            <!-- Stats Cards - Simplified -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-purple-400/20 transition-all">
+                    <div class="text-3xl md:text-4xl font-montserrat font-bold text-gradient mb-1">£47</div>
+                    <div class="text-white/60 font-inter text-xs">Per Month</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-gradient mb-2">£47</div>
-                    <div class="text-white/60 font-inter">Per Month</div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-cyan-400/20 transition-all">
+                    <div class="text-3xl md:text-4xl font-montserrat font-bold text-cyan-400 mb-1">7</div>
+                    <div class="text-white/60 font-inter text-xs">Days to Launch</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-white mb-2">£0</div>
-                    <div class="text-white/60 font-inter">Upfront Cost</div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-green-400/20 transition-all">
+                    <div class="text-3xl md:text-4xl font-montserrat font-bold text-green-400 mb-1">£0</div>
+                    <div class="text-white/60 font-inter text-xs">Setup Fee</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-montserrat font-bold text-[var(--accent-cyan)] mb-2">100%</div>
-                    <div class="text-white/60 font-inter">Custom Design</div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-yellow-400/20 transition-all">
+                    <div class="text-3xl md:text-4xl font-montserrat font-bold text-yellow-400 mb-1">∞</div>
+                    <div class="text-white/60 font-inter text-xs">Updates</div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Pricing Cards Section -->
-<section class="py-16 md:py-24 relative">
-    <div class="container mx-auto px-4 sm:px-6">
-        <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             
-            <!-- Starter Plan -->
-            <div class="modern-card pricing-card p-8 relative">
-                <div class="mb-6">
-                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Starter</h3>
-                    <p class="text-white/60 text-sm">Perfect for small businesses</p>
-                </div>
-                <div class="mb-8">
-                    <span class="text-4xl font-montserrat font-bold text-white">£47</span>
-                    <span class="text-white/60">/month</span>
-                </div>
-                <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">5-page custom website</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Mobile responsive design</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Basic SEO optimization</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">SSL certificate included</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Monthly updates included</span>
-                    </li>
-                </ul>
-                <button class="btn-secondary w-full">
-                    Get Started
-                </button>
-            </div>
-            
-            <!-- Professional Plan (Popular) -->
-            <div class="modern-card pricing-card p-8 relative transform lg:scale-105 neon-border">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span class="gradient-accent text-white px-6 py-2 rounded-full text-xs font-semibold uppercase">Most Popular</span>
-                </div>
-                <div class="mb-6">
-                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Professional</h3>
-                    <p class="text-white/60 text-sm">For growing businesses</p>
-                </div>
-                <div class="mb-8">
-                    <span class="text-4xl font-montserrat font-bold text-gradient">£97</span>
-                    <span class="text-white/60">/month</span>
-                </div>
-                <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">10-page custom website</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Advanced animations</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">E-commerce ready</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Advanced SEO & Analytics</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Weekly updates & priority support</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Custom integrations</span>
-                    </li>
-                </ul>
-                <button class="btn-primary w-full">
-                    Get Started
-                </button>
-            </div>
-            
-            <!-- Enterprise Plan -->
-            <div class="modern-card pricing-card p-8 relative">
-                <div class="mb-6">
-                    <h3 class="text-2xl font-montserrat font-bold text-white mb-2">Enterprise</h3>
-                    <p class="text-white/60 text-sm">For large organizations</p>
-                </div>
-                <div class="mb-8">
-                    <span class="text-4xl font-montserrat font-bold text-white">Custom</span>
-                </div>
-                <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Unlimited pages</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Custom development</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">Dedicated account manager</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">24/7 priority support</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-check text-[var(--accent-cyan)] mt-1"></i>
-                        <span class="text-white/70">SLA guarantee</span>
-                    </li>
-                </ul>
-                <button class="btn-secondary w-full">
-                    Contact Sales
+            <!-- Balanced CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#pricing-cards" class="gradient-primary text-white px-10 py-3.5 rounded-full font-montserrat font-bold text-base hover:scale-105 hover:-translate-y-0.5 transition-all duration-300 inline-block">
+                    <i class="fa-solid fa-arrow-down mr-2"></i>
+                    View Pricing Plans
+                </a>
+                <button onclick="document.getElementById('demo-form').scrollIntoView({behavior: 'smooth'})" class="border-2 border-accent text-accent px-10 py-3.5 rounded-full font-montserrat font-semibold text-base hover:bg-accent hover:text-dark transition-all duration-300">
+                    Get FREE Demo
                 </button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Comparison - Styled like Home Page Benefits -->
-<section class="py-16 md:py-24">
-    <div class="container mx-auto px-4 sm:px-6">
+<!-- Pricing Cards Section - Balanced Design -->
+<section id="pricing-cards" class="py-20 md:py-24 relative overflow-hidden">
+    <!-- Subtle Background -->
+    <div class="absolute inset-0">
+        <div class="absolute top-1/2 left-1/3 w-72 h-72 bg-gradient-to-r from-cyan-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/2 right-1/3 w-72 h-72 bg-gradient-to-l from-purple-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <!-- Simple Header -->
         <div class="text-center mb-12">
+            <p class="text-white/60 font-inter text-sm mb-4">Choose Your Plan</p>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+                Two Simple Options
+            </h2>
+            <p class="text-base md:text-lg text-white/60 max-w-2xl mx-auto font-inter">
+                Start with our standard plan or go custom. Both include everything you need.
+            </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <!-- Standard Plan - Most Popular -->
+            <div class="relative group">
+                <!-- Popular Badge -->
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div class="bg-[var(--bg-primary)] border border-cyan-400/30 text-cyan-400 px-4 py-1.5 rounded-full text-xs font-montserrat font-semibold">
+                        Most Popular
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-cyan-400/20 rounded-2xl p-8 relative overflow-hidden h-full transition-all duration-300 hover:border-cyan-400/40">
+                    <!-- Subtle Glow -->
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <!-- Plan Header -->
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-cyan-500/10 rounded-xl mb-4">
+                                <i class="fa-solid fa-star text-lg text-cyan-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-montserrat font-bold text-white mb-1">Standard</h3>
+                            <p class="text-white/50 font-inter text-sm">Perfect for most businesses</p>
+                        </div>
+                        
+                        <!-- Pricing -->
+                        <div class="text-center mb-6 py-4 bg-white/[0.02] rounded-xl">
+                            <div class="flex items-end justify-center gap-1">
+                                <span class="text-4xl font-montserrat font-bold text-white">£47</span>
+                                <span class="text-white/50 font-inter text-sm mb-1">/month</span>
+                            </div>
+                            <p class="text-cyan-400/80 font-inter text-xs mt-1">Cancel anytime</p>
+                        </div>
+                        
+                        <!-- Features List -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">5-Page Custom Website</span>
+                                    <p class="text-white/40 text-xs">Home, About, Services, Contact + 1</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Professional Design</span>
+                                    <p class="text-white/40 text-xs">100% custom, no templates</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Mobile Responsive</span>
+                                    <p class="text-white/40 text-xs">Perfect on all devices</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">SEO Optimized</span>
+                                    <p class="text-white/40 text-xs">Rank higher on Google</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Hosting & SSL</span>
+                                    <p class="text-white/40 text-xs">Fast, secure, reliable</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Monthly Updates</span>
+                                    <p class="text-white/40 text-xs">Keep content fresh</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-check text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">24/7 Support</span>
+                                    <p class="text-white/40 text-xs">Always here to help</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <button class="gradient-primary text-white px-8 py-3 rounded-full font-montserrat font-semibold text-base hover:scale-105 transition-all duration-300 w-full">
+                            Get Started Today
+                        </button>
+                        
+                        <!-- Guarantee -->
+                        <p class="text-center text-white/40 text-xs mt-3 font-inter">
+                            <i class="fa-solid fa-shield-check text-green-400/70 text-xs mr-1"></i>
+                            30-day money-back guarantee
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Plan -->
+            <div class="relative group">
+                <!-- Enterprise Badge -->
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div class="bg-[var(--bg-primary)] border border-purple-400/30 text-purple-400 px-4 py-1.5 rounded-full text-xs font-montserrat font-semibold">
+                        Enterprise
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-purple-400/20 rounded-2xl p-8 relative overflow-hidden h-full transition-all duration-300 hover:border-purple-400/40">
+                    <!-- Subtle Glow -->
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-purple-500/10 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <!-- Plan Header -->
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-purple-500/10 rounded-xl mb-4">
+                                <i class="fa-solid fa-crown text-lg text-purple-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-montserrat font-bold text-white mb-1">Custom</h3>
+                            <p class="text-white/50 font-inter text-sm">For unique requirements</p>
+                        </div>
+                        
+                        <!-- Pricing -->
+                        <div class="text-center mb-6 py-4 bg-white/[0.02] rounded-xl">
+                            <div class="flex items-end justify-center gap-1">
+                                <span class="text-4xl font-montserrat font-bold text-gradient">Custom</span>
+                            </div>
+                            <p class="text-purple-400/80 font-inter text-xs mt-1">Tailored pricing</p>
+                        </div>
+                        
+                        <!-- Features List -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-infinity text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Unlimited Pages</span>
+                                    <p class="text-white/40 text-xs">As many as you need</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-code text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Advanced Features</span>
+                                    <p class="text-white/40 text-xs">E-commerce, bookings, portals</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-plug text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Custom Integrations</span>
+                                    <p class="text-white/40 text-xs">CRM, payment, APIs</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-bolt text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Priority Development</span>
+                                    <p class="text-white/40 text-xs">Fast-track delivery</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-headset text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Dedicated Support</span>
+                                    <p class="text-white/40 text-xs">Direct team access</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-chart-line text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Analytics & Reporting</span>
+                                    <p class="text-white/40 text-xs">Track everything</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-shield text-purple-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <span class="text-white text-sm">Enterprise Security</span>
+                                    <p class="text-white/40 text-xs">Advanced protection</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <button class="border border-purple-400/50 text-purple-400 px-8 py-3 rounded-full font-montserrat font-semibold text-base hover:bg-purple-400/10 transition-all duration-300 w-full">
+                            Get Custom Quote
+                        </button>
+                        
+                        <!-- Note -->
+                        <p class="text-center text-white/40 text-xs mt-3 font-inter">
+                            <i class="fa-solid fa-clock text-purple-400/70 text-xs mr-1"></i>
+                            Response within 24 hours
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Comparison Note -->
+        <div class="text-center mt-12">
+            <p class="text-white/60 font-inter text-sm">
+                Not sure which plan is right for you? 
+                <a href="#demo-form" class="text-accent hover:text-white transition-colors font-semibold">Get a FREE demo</a> 
+                and we'll help you choose.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Features Included - Refined Minimalistic Style -->
+<section class="py-20 md:py-24 relative overflow-hidden border-t border-white/10">
+    <!-- Subtle background -->
+    <div class="absolute inset-0">
+        <div class="absolute top-1/2 left-1/3 w-72 h-72 bg-gradient-to-r from-cyan-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/2 right-1/3 w-72 h-72 bg-gradient-to-l from-purple-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <!-- Refined Header -->
+        <div class="text-center mb-14">
+            <div class="inline-block bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6">
+                <span class="text-white/80 font-montserrat font-semibold text-sm">✓ Included in All Plans</span>
+            </div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
                 Everything You Need to <span class="text-gradient">Succeed Online</span>
             </h2>
-            <p class="text-lg text-white/70 max-w-2xl mx-auto">
-                All plans include our core features. Choose based on your business size and needs.
+            <p class="text-lg text-white/60 max-w-2xl mx-auto font-inter">
+                Every plan includes our complete feature set. No hidden upsells.
             </p>
         </div>
         
-        <div class="max-w-5xl mx-auto">
-            <div class="modern-card p-8 md:p-12">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Features Grid - More Subtle -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-rocket text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt text-cyan-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">Lightning Fast</h4>
-                            <p class="text-white/60 text-sm">Optimized for speed with 90+ PageSpeed scores</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">Lightning Fast</h4>
+                            <p class="text-white/50 text-xs">90+ PageSpeed scores guaranteed</p>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-mobile-alt text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500/10 to-pink-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mobile-alt text-purple-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">Mobile First</h4>
-                            <p class="text-white/60 text-sm">Perfectly responsive on all devices</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">Mobile Perfect</h4>
+                            <p class="text-white/50 text-xs">Responsive on every device</p>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-shield-alt text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-check text-green-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">Secure & Reliable</h4>
-                            <p class="text-white/60 text-sm">SSL certificates and daily backups</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">Secure Hosting</h4>
+                            <p class="text-white/50 text-xs">SSL & daily backups included</p>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-yellow-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-search text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-yellow-500/10 to-orange-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-search text-yellow-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">SEO Optimized</h4>
-                            <p class="text-white/60 text-sm">Built-in SEO best practices</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">SEO Ready</h4>
+                            <p class="text-white/50 text-xs">Built for Google rankings</p>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-chart-line text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500/10 to-indigo-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line text-blue-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">Analytics Ready</h4>
-                            <p class="text-white/60 text-sm">Google Analytics integration</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">Analytics</h4>
+                            <p class="text-white/50 text-xs">Track every visitor</p>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-400/20 transition-all duration-300 group">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent/20 to-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-headset text-xl text-[var(--accent-cyan)]"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-orange-500/10 to-red-500/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-headset text-orange-400"></i>
                         </div>
                         <div>
-                            <h4 class="font-montserrat font-bold text-white mb-2">Ongoing Support</h4>
-                            <p class="text-white/60 text-sm">Updates and maintenance included</p>
+                            <h4 class="font-montserrat font-semibold text-white mb-1 text-sm">24/7 Support</h4>
+                            <p class="text-white/50 text-xs">Always here to help</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Features Bar -->
+            <div class="mt-10 text-center">
+                <div class="inline-flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Custom Design</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Social Integration</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Contact Forms</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Google Maps</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Image Galleries</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-check text-accent text-xs"></i>
+                        <span class="text-white/60 font-inter">Blog Setup</span>
                     </div>
                 </div>
             </div>
@@ -613,65 +812,202 @@
     </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="py-16 md:py-24">
-    <div class="container mx-auto px-4 sm:px-6">
-        <div class="text-center mb-12">
+<!-- FAQ Section - Enhanced Design -->
+<section class="py-20 md:py-24 relative overflow-hidden border-t border-white/10">
+    <!-- Subtle animated background -->
+    <div class="absolute inset-0">
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <!-- Enhanced Header -->
+        <div class="text-center mb-14">
+            <div class="inline-block bg-gradient-to-r from-purple-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6">
+                <span class="text-white/80 font-montserrat font-semibold text-sm">❓ Got Questions?</span>
+            </div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
                 Frequently Asked <span class="text-gradient">Questions</span>
             </h2>
+            <p class="text-lg text-white/60 max-w-2xl mx-auto font-inter">
+                Everything you need to know about our service
+            </p>
         </div>
         
-        <div class="max-w-3xl mx-auto space-y-6">
-            <div class="modern-card p-6">
-                <h3 class="font-montserrat font-bold text-white mb-3">Can I cancel anytime?</h3>
-                <p class="text-white/70">Yes! No contracts, no cancellation fees. Cancel anytime with just one click.</p>
+        <!-- FAQ Grid - 2 columns -->
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 mb-12">
+            <!-- FAQ 1 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-circle-xmark text-cyan-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Can I cancel anytime?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Yes! No contracts, no cancellation fees. Cancel anytime with 30 days notice. Your website remains active until the end of your billing period.
+                        </p>
+                    </div>
+                </div>
             </div>
             
-            <div class="modern-card p-6">
-                <h3 class="font-montserrat font-bold text-white mb-3">Do I own my website?</h3>
-                <p class="text-white/70">Yes, you own all the content and can export it anytime. We handle the technical hosting and maintenance.</p>
+            <!-- FAQ 2 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500/10 to-pink-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-cog text-purple-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">How does the service work?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            You get a professionally designed website that we host and maintain. As long as you're subscribed, your website stays live with all updates included.
+                        </p>
+                    </div>
+                </div>
             </div>
             
-            <div class="modern-card p-6">
-                <h3 class="font-montserrat font-bold text-white mb-3">What if I need changes after launch?</h3>
-                <p class="text-white/70">All plans include monthly updates. Need more frequent changes? Our Professional plan includes weekly updates.</p>
+            <!-- FAQ 3 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-sync text-green-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">What about updates?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            All plans include monthly updates. Just email us your changes and we'll implement them within 24-48 hours. Text, images, new pages - all included.
+                        </p>
+                    </div>
+                </div>
             </div>
             
-            <div class="modern-card p-6">
-                <h3 class="font-montserrat font-bold text-white mb-3">Do you offer refunds?</h3>
-                <p class="text-white/70">We offer a 30-day money-back guarantee. If you're not happy, we'll refund your first month.</p>
+            <!-- FAQ 4 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-yellow-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-yellow-500/10 to-orange-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-shield-check text-yellow-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Is there a guarantee?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Yes! We offer a 30-day money-back guarantee. Plus, you'll see a FREE demo of your website before paying anything.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ 5 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500/10 to-indigo-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-clock text-blue-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">How fast is delivery?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Your website will be live in 7 days or less. We start immediately after our initial consultation and keep you updated daily.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ 6 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-orange-500/10 to-red-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-code text-orange-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Can I request custom features?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Absolutely! Our Custom plan includes advanced features like e-commerce, booking systems, and integrations. Contact us to discuss your needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact CTA -->
+        <div class="text-center">
+            <p class="text-white/60 font-inter text-sm mb-4">Still have questions?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="mailto:hello@websies.co.uk" class="text-accent hover:text-white font-inter font-medium transition-colors">
+                    <i class="fa-solid fa-envelope mr-2"></i>
+                    Email us directly
+                </a>
+                <span class="text-white/30 hidden sm:inline">•</span>
+                <a href="#" class="text-accent hover:text-white font-inter font-medium transition-colors">
+                    <i class="fa-solid fa-comments mr-2"></i>
+                    Start live chat
+                </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA Section - Matching Home Page Style -->
-<section class="py-16 md:py-24">
-    <div class="container mx-auto px-4 sm:px-6">
-        <div class="modern-card p-12 text-center max-w-4xl mx-auto relative overflow-hidden">
-            <div class="absolute inset-0 opacity-20">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/30 to-transparent rounded-full blur-3xl"></div>
+<!-- CTA Section - Enhanced Minimalistic Design -->
+<section class="py-20 md:py-28 relative overflow-hidden border-t border-white/10">
+    <!-- Subtle Background - matching other sections -->
+    <div class="absolute inset-0">
+        <div class="absolute top-1/2 left-1/3 w-72 h-72 bg-gradient-to-r from-purple-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/2 right-1/3 w-72 h-72 bg-gradient-to-l from-cyan-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Premium Badge -->
+            <div class="inline-block bg-gradient-to-r from-purple-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-8">
+                <span class="text-white/80 font-montserrat font-semibold text-sm">🚀 Join 500+ Happy Businesses</span>
             </div>
-            <div class="relative z-10">
-                <h2 class="text-3xl md:text-4xl font-montserrat font-bold text-white mb-6">
-                    Ready to Get <span class="text-gradient">Started?</span>
-                </h2>
-                <p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-                    Join 500+ businesses that trust Websies for their online presence. 
-                    Get your custom website in just 7 days.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="btn-primary">
-                        <i class="fas fa-rocket mr-2"></i>
-                        Get Your FREE Demo
-                    </button>
-                    <button class="btn-secondary">
-                        <i class="fas fa-calendar mr-2"></i>
-                        Book a Call
-                    </button>
+            
+            <!-- Main Heading -->
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-white mb-6">
+                Ready to <span class="text-gradient">Transform</span> Your Business?
+            </h2>
+            
+            <!-- Subtitle -->
+            <p class="text-xl text-white/70 mb-12 max-w-3xl mx-auto font-inter leading-relaxed">
+                Get a professional website that actually grows your business.<br>
+                <span class="text-accent font-semibold">7 days to launch. £47/month. Zero upfront.</span>
+            </p>
+            
+            <!-- Value Props Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-green-400/20 transition-all">
+                    <i class="fa-solid fa-check-circle text-green-400 text-xl mb-2"></i>
+                    <p class="text-white/70 text-xs font-inter">FREE Demo First</p>
+                </div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-blue-400/20 transition-all">
+                    <i class="fa-solid fa-bolt text-blue-400 text-xl mb-2"></i>
+                    <p class="text-white/70 text-xs font-inter">7-Day Delivery</p>
+                </div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-purple-400/20 transition-all">
+                    <i class="fa-solid fa-infinity text-purple-400 text-xl mb-2"></i>
+                    <p class="text-white/70 text-xs font-inter">Unlimited Updates</p>
+                </div>
+                <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-yellow-400/20 transition-all">
+                    <i class="fa-solid fa-shield-check text-yellow-400 text-xl mb-2"></i>
+                    <p class="text-white/70 text-xs font-inter">Money-Back</p>
                 </div>
             </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a href="#demo-form" class="gradient-primary text-white px-10 py-4 rounded-full font-montserrat font-bold text-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block shadow-lg">
+                    <i class="fa-solid fa-gift mr-2"></i>
+                    Get Your FREE Demo
+                </a>
+                <button onclick="window.location.href='mailto:hello@websies.co.uk'" class="border-2 border-accent text-accent px-10 py-4 rounded-full font-montserrat font-semibold text-lg hover:bg-accent hover:text-dark transition-all duration-300">
+                    <i class="fa-solid fa-comments mr-2"></i>
+                    Let's Talk
+                </button>
+            </div>
+            
+            <!-- Trust Text -->
+            <p class="text-white/50 text-sm font-inter">
+                <i class="fa-solid fa-lock text-green-400 mr-2"></i>
+                Secure payment • Cancel anytime • No contracts
+            </p>
         </div>
     </div>
 </section>

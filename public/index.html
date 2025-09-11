@@ -310,7 +310,7 @@
     transform: rotate(90deg);
   }
 
-  .user-menu {
+  ..user-menu {
     display: none;
     position: relative;
   }
@@ -337,33 +337,38 @@
   .user-dropdown {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 12px);
     right: 0;
-    margin-top: 12px;
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-subtle);
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(107, 114, 128, 0.5);
     border-radius: 12px;
-    padding: 8px;
-    min-width: 200px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    min-width: 224px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
   }
 
   .user-dropdown.active {
     display: block;
   }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
 
   .dropdown-item {
     padding: 10px 16px;
-    border-radius: 8px;
-    color: white;
+    color: rgb(209, 213, 219);
     text-decoration: none;
-    display: block;
+    display: flex;
+    align-items: center;
     transition: all 0.2s ease;
     font-size: 14px;
   }
 
   .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(55, 65, 81, 0.5);
+    color: white;
   }
 
   .dropdown-divider {
@@ -484,11 +489,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <i class="fa-solid fa-chevron-down text-white/60 text-xl animate-bounce"></i>
     </div>
 </section>
 
@@ -1541,191 +1541,321 @@
     </div>
 </section>
 
-<section id="faq" class="py-16 md:py-20 section-modern relative overflow-hidden border-b border-white/10">
+<section id="faq" class="py-20 md:py-24 relative overflow-hidden border-b border-white/10" style="background: linear-gradient(135deg, rgba(25, 25, 30, 0.3) 0%, rgba(35, 35, 40, 0.4) 50%, rgba(25, 25, 30, 0.3) 100%)">
+    <!-- Subtle animated background -->
     <div class="absolute inset-0">
-        <div class="absolute top-1/2 left-10 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/3 right-20 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/5 via-transparent to-transparent rounded-full blur-3xl"></div>
     </div>
-    <div class="container mx-auto px-4 sm:px-6 relative">
-        <div class="text-center mb-12 px-4">
+    
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <!-- Enhanced Header -->
+        <div class="text-center mb-14">
+            <div class="inline-block bg-gradient-to-r from-purple-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-full px-6 py-2 mb-6">
+                <span class="text-white/80 font-montserrat font-semibold text-sm">❓ Got Questions? We've Got Answers</span>
+            </div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
                 Frequently Asked <span class="text-gradient">Questions</span>
             </h2>
-            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
-                Everything you need to know
+            <p class="text-lg text-white/60 max-w-2xl mx-auto font-inter">
+                Clear, honest answers to help you make an informed decision
             </p>
         </div>
         
-        <div class="max-w-3xl mx-auto">
-            <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-accent/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            What's included in the £47/month?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Everything. Custom design, hosting, SSL certificate, unlimited updates, mobile optimization, SEO basics, and 24/7 support. No hidden fees ever.
+        <!-- FAQ Grid - 2 columns on desktop, 1 on mobile -->
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 mb-12">
+            <!-- FAQ 1 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-pound-sign text-cyan-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">What's included in £47/month?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Everything you need: 5-page custom website, hosting, SSL, mobile optimization, SEO setup, monthly updates, and 24/7 support. No hidden fees, no surprises.
                         </p>
                     </div>
                 </div>
-                
-                <!-- FAQ Item 2 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-cyan-400/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            Do you really deliver in 7 days?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Yes. We've streamlined our process to deliver professional websites in 7 days or less. If we don't meet this deadline, your first month is free.
+            </div>
+            
+            <!-- FAQ 2 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500/10 to-pink-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-rocket text-purple-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Really just 7 days?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Yes! We've perfected our process to deliver in 7 days or less. If we're late, your first month is free. That's our promise.
                         </p>
                     </div>
                 </div>
-                
-                <!-- FAQ Item 3 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-green-400/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            Can I cancel anytime?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Absolutely. No contracts, no cancellation fees. Cancel anytime with 30 days notice. We'll even help you export your website if needed.
+            </div>
+            
+            <!-- FAQ 3 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-circle-xmark text-green-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Can I cancel anytime?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Absolutely! No contracts, no fees. Cancel with 30 days notice. Your site stays live until the end of your billing period.
                         </p>
                     </div>
                 </div>
-                
-                <!-- FAQ Item 4 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-purple-400/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            How do updates work?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Simply email us your changes and we'll implement them within 24-48 hours. Text updates, image changes, new pages - all included in your monthly plan.
+            </div>
+            
+            <!-- FAQ 4 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-yellow-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-yellow-500/10 to-orange-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-sync text-yellow-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">How do updates work?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Email us your changes - text, images, new pages. We'll update within 24-48 hours. All included in your monthly plan.
                         </p>
                     </div>
                 </div>
-                
-                <!-- FAQ Item 5 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-orange-400/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            Do you build e-commerce websites?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Yes. E-commerce functionality is available in our Custom plan. We integrate with Shopify, WooCommerce, and other platforms. Contact us for details.
+            </div>
+            
+            <!-- FAQ 5 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500/10 to-indigo-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-shopping-cart text-blue-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Do you build online stores?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            Yes! E-commerce sites are available through our Custom plan. We work with Shopify, WooCommerce, and more.
                         </p>
                     </div>
                 </div>
-                
-                <!-- FAQ Item 6 -->
-                <div class="group">
-                    <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-yellow-400/20 transition-all duration-300">
-                        <h3 class="text-lg font-montserrat font-semibold text-white mb-3">
-                            Will my website work on mobile?
-                        </h3>
-                        <p class="text-white/70 font-inter text-sm leading-relaxed">
-                            Every website we build is fully responsive and optimized for all devices. We test on all screen sizes to ensure perfect performance everywhere.
+            </div>
+            
+            <!-- FAQ 6 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-orange-500/10 to-red-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-mobile-alt text-orange-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Is it mobile-friendly?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            100% responsive on all devices. We test on phones, tablets, and desktops to ensure perfect display everywhere.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ 7 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-pink-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-pink-500/10 to-rose-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-gift text-pink-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">What's the FREE demo?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            We'll design your actual website and show it to you before you pay anything. Love it? Great! Not quite right? We'll revise it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ 8 -->
+            <div class="bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-teal-400/20 transition-all duration-300 group">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-teal-500/10 to-cyan-500/5 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-shield-check text-teal-400 text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat font-semibold text-white mb-2">Is there a guarantee?</h3>
+                        <p class="text-white/60 text-sm leading-relaxed">
+                            30-day money-back guarantee on your first month. Plus our 7-day delivery promise. We're confident you'll love our service.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-12">
-            <p class="text-white/60 font-inter text-sm mb-4">Still have questions?</p>
-            <a href="mailto:hello@websies.co.uk" class="text-accent hover:text-white font-inter font-medium transition-colors">
-                Email us directly →
-            </a>
+        <!-- Contact CTA -->
+        <div class="text-center">
+            <p class="text-white/60 font-inter text-sm mb-4">Can't find what you're looking for?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="mailto:hello@websies.co.uk" class="text-accent hover:text-white font-inter font-medium transition-colors">
+                    <i class="fa-solid fa-envelope mr-2"></i>
+                    Email us directly
+                </a>
+                <span class="text-white/30 hidden sm:inline">•</span>
+                <a href="pricing.html" class="text-accent hover:text-white font-inter font-medium transition-colors">
+                    <i class="fa-solid fa-tag mr-2"></i>
+                    View pricing details
+                </a>
+            </div>
         </div>
     </div>
 </section>
 
-<section id="referral" class="relative overflow-hidden py-16 md:py-20 border-b border-white/10" style="background: linear-gradient(135deg, rgba(60, 60, 65, 0.2) 0%, rgba(50, 50, 55, 0.25) 50%, rgba(55, 55, 60, 0.2) 100%)">
+<section id="referral" class="relative overflow-hidden py-20 md:py-24 border-b border-white/10" style="background: linear-gradient(135deg, rgba(25, 25, 30, 0.4) 0%, rgba(35, 35, 40, 0.5) 50%, rgba(25, 25, 30, 0.4) 100%)">
+    <!-- Enhanced animated background -->
     <div class="absolute inset-0">
-        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l from-cyan-500/10 via-transparent to-transparent rounded-full blur-3xl"></div>
-    </div>
-    <!-- Subtle animated background -->
-    <div class="absolute inset-0 opacity-20">
-        <div class="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-yellow-500/20 to-transparent rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-64 h-64 bg-gradient-to-r from-orange-500/20 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-yellow-500/15 via-orange-500/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-l from-amber-500/15 via-yellow-500/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
     </div>
     
     <div class="container mx-auto px-4 sm:px-6 relative z-10">
-        <!-- Simplified Header -->
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-white mb-4">
+        <!-- Enhanced Header with Badge -->
+        <div class="text-center mb-14">
+            <div class="inline-block bg-gradient-to-r from-yellow-500/10 to-orange-500/10 backdrop-blur-sm border border-yellow-500/20 rounded-full px-6 py-2 mb-6">
+                <span class="text-yellow-400 font-montserrat font-semibold text-sm">💰 Partner Program</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-white mb-4">
                 Earn <span class="text-gradient">£47</span> Per Referral
             </h2>
-            <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-inter">
-                Get paid for every business you refer that signs up
+            <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-inter">
+                Turn your network into income. Get paid instantly for every successful referral.
             </p>
         </div>
         
-        <div class="max-w-4xl mx-auto">
-            <!-- Single Clean Card -->
-            <div class="modern-card p-8 md:p-10 text-center mb-12">
-                <div class="mb-8">
-                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-full mb-6">
-                        <i class="fa-solid fa-coins text-3xl text-yellow-400"></i>
-                    </div>
-                    
-                    <h3 class="text-2xl font-montserrat font-bold text-white mb-3">Simple Partner Program</h3>
-                    <p class="text-white/60 font-inter max-w-2xl mx-auto">
-                        Earn the equivalent of a full month's subscription for every successful referral. 
-                        No complicated tiers, no earning caps, just simple rewards.
-                    </p>
-                </div>
-                
-                <!-- How It Works - Horizontal Steps -->
-                <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-400/20 to-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <span class="text-accent font-bold">1</span>
+        <div class="max-w-5xl mx-auto">
+            <!-- Main Content Grid -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Left Side - Value Proposition Card -->
+                <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-yellow-400/30 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-yellow-500/20 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-2xl flex items-center justify-center">
+                                <i class="fa-solid fa-hand-holding-dollar text-2xl text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-montserrat font-bold text-white">Partner Benefits</h3>
+                                <p class="text-yellow-400 font-inter text-sm">Unlimited earning potential</p>
+                            </div>
                         </div>
-                        <h4 class="font-montserrat font-semibold text-white mb-1">Share</h4>
-                        <p class="text-white/50 font-inter text-sm">Recommend Websies to businesses</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-400/20 to-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <span class="text-accent font-bold">2</span>
+                        
+                        <!-- Benefits List -->
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check-circle text-green-400 mt-1"></i>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">£47 Per Referral</h4>
+                                    <p class="text-white/60 text-sm">Full month's value for every successful signup</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check-circle text-green-400 mt-1"></i>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">No Earning Caps</h4>
+                                    <p class="text-white/60 text-sm">Refer as many as you want, earn without limits</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check-circle text-green-400 mt-1"></i>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">Fast Payouts</h4>
+                                    <p class="text-white/60 text-sm">Monthly payments, 24-hour approval process</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check-circle text-green-400 mt-1"></i>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">Marketing Support</h4>
+                                    <p class="text-white/60 text-sm">We provide materials to help you succeed</p>
+                                </div>
+                            </div>
                         </div>
-                        <h4 class="font-montserrat font-semibold text-white mb-1">They Sign Up</h4>
-                        <p class="text-white/50 font-inter text-sm">Using your referral code</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-400/20 to-orange-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <span class="text-yellow-400 font-bold">£</span>
-                        </div>
-                        <h4 class="font-montserrat font-semibold text-white mb-1">Get Paid</h4>
-                        <p class="text-white/50 font-inter text-sm">£47 instantly credited</p>
-                    </div>
-                </div>
-                
-                <!-- Key Benefits - Text Only -->
-                <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm mb-8">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
-                        <span class="text-white/70">No earning limits</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
-                        <span class="text-white/70">24-hour approval</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-check text-yellow-400 text-xs"></i>
-                        <span class="text-white/70">Monthly payouts</span>
                     </div>
                 </div>
                 
-                <!-- Single CTA -->
-                <a href="pricing.html" class="gradient-primary text-white px-8 py-3 rounded-full font-montserrat font-semibold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block">
-                    <i class="fa-solid fa-rocket mr-2"></i>
-                    Start Earning Today
-                </a>
+                <!-- Right Side - How It Works -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-montserrat font-bold text-white mb-6">How It Works</h3>
+                    
+                    <!-- Step 1 -->
+                    <div class="flex items-start space-x-4 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl font-bold text-cyan-400">1</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-lg font-montserrat font-bold text-white mb-2">Share Your Code</h4>
+                            <p class="text-white/60 text-sm">
+                                Tell businesses about Websies and share your unique referral code. We'll track every referral automatically.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex items-start space-x-4 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl font-bold text-purple-400">2</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-lg font-montserrat font-bold text-white mb-2">They Get Their Website</h4>
+                            <p class="text-white/60 text-sm">
+                                When they sign up using your code, they get an amazing website and you get credited immediately.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="flex items-start space-x-4 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl font-bold text-yellow-400">3</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-lg font-montserrat font-bold text-white mb-2">You Get Paid</h4>
+                            <p class="text-white/60 text-sm">
+                                £47 credited to your account. Paid out monthly via bank transfer or PayPal. Simple as that.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <div class="pt-4">
+                        <a href="pricing.html" class="gradient-primary text-white px-8 py-4 rounded-full font-montserrat font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300 inline-block w-full text-center">
+                            <i class="fa-solid fa-rocket mr-2"></i>
+                            Join Partner Program
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Stats Bar -->
+            <div class="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-montserrat font-bold text-yellow-400 mb-1">£47</div>
+                        <div class="text-white/60 font-inter text-xs">Per Referral</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-montserrat font-bold text-green-400 mb-1">24h</div>
+                        <div class="text-white/60 font-inter text-xs">Quick Approval</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-montserrat font-bold text-cyan-400 mb-1">∞</div>
+                        <div class="text-white/60 font-inter text-xs">No Limits</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-montserrat font-bold text-purple-400 mb-1">100+</div>
+                        <div class="text-white/60 font-inter text-xs">Active Partners</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Trust Element -->
+            <div class="text-center mt-8">
+                <p class="text-white/60 font-inter text-sm">
+                    <i class="fa-solid fa-shield-check text-green-400 mr-2"></i>
+                    Trusted partner program with transparent tracking and guaranteed payouts
+                </p>
             </div>
         </div>
     </div>

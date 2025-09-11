@@ -19,13 +19,22 @@ function checkAuthStatus() {
         // User is logged in
         if (loginBtn) loginBtn.style.display = 'none';
         if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
-        if (userMenu) userMenu.classList.add('active');
+        if (userMenu) {
+            userMenu.classList.remove('hidden');
+            userMenu.classList.add('active');
+        }
         
         // Set user initial in avatar
         const userInitial = document.getElementById('userInitial');
         if (userInitial && userName) {
             userInitial.textContent = userName.charAt(0).toUpperCase();
         }
+        
+        // Set user name and email in dropdown
+        const userNameElement = document.getElementById('userName');
+        const userEmailElement = document.getElementById('userEmail');
+        if (userNameElement) userNameElement.textContent = userName || 'User';
+        if (userEmailElement) userEmailElement.textContent = userEmail;
         
         // Show/hide content based on login status
         updateContentVisibility(true);

@@ -1,10 +1,34 @@
 import './globals.css';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import { AuthProvider } from '@/components/AuthProvider';
 
 export const metadata = {
   title: 'Websies - Professional Websites in 7 Days | £47/month',
   description: 'Get a professional website in 7 days for just £47/month. Zero upfront fees, custom design, unlimited updates. Join 500+ happy businesses.',
+  metadataBase: new URL('https://websies.co'),
+  openGraph: {
+    title: 'Websies - Professional Websites in 7 Days | £47/month',
+    description: 'Get a professional website in 7 days for just £47/month. Zero upfront fees, custom design, unlimited updates. Join 500+ happy businesses.',
+    url: 'https://websies.co',
+    siteName: 'Websies',
+    images: [
+      {
+        url: '/images/websies-logo.png', // Update this to match your logo filename
+        width: 1200,
+        height: 630,
+        alt: 'Websies Logo - Professional Websites in 7 Days',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Websies - Professional Websites in 7 Days | £47/month',
+    description: 'Get a professional website in 7 days for just £47/month. Zero upfront fees, custom design, unlimited updates. Join 500+ happy businesses.',
+    images: ['/images/websies-logo.png'], // Update this to match your logo filename
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -23,11 +47,13 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans">
-        <SiteHeader />
-        <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
-          {children}
-        </main>
-        <SiteFooter />
+        <AuthProvider>
+          <SiteHeader />
+          <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
+            {children}
+          </main>
+          <SiteFooter />
+        </AuthProvider>
       </body>
     </html>
   );
