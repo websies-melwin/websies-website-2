@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dropdown</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #1a1a1a; padding: 50px; font-family: Arial; }
+        
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00F2FE 0%, #FF416C 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1a1a1a;
+            cursor: pointer;
+        }
+        
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(107, 114, 128, 0.5);
+            border-radius: 12px;
+            min-width: 224px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .user-dropdown.active {
+            display: block;
+        }
+        
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-item {
+            padding: 10px 16px;
+            color: rgb(209, 213, 219);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(55, 65, 81, 0.5);
+            color: white;
+        }
+        
+        button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        svg {
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Test Dropdown Menu</h1>
+    <p style="color: white;">Click the button below to test the dropdown:</p>
+    
+    <div class="user-menu" id="userMenu">
+        <button onclick="toggleDropdown()">
+            <div class="user-avatar">
+                <span>U</span>
+            </div>
+            <svg id="dropdownArrow" width="16" height="16" style="color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+            <div style="padding: 12px 16px; border-bottom: 1px solid rgba(107, 114, 128, 0.5); background: rgba(55, 65, 81, 0.5);">
+                <p style="font-size: 14px; font-weight: 600; color: white; margin: 0;">Test User</p>
+                <p style="font-size: 12px; color: #9CA3AF; margin: 0;">user@example.com</p>
+            </div>
+            <div style="padding: 8px 0;">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-tachometer-alt" style="width: 20px; color: rgb(34, 211, 238);"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user-cog" style="width: 20px; color: rgb(168, 85, 247);"></i>
+                    <span>My Account</span>
+                </a>
+            </div>
+            <div style="border-top: 1px solid rgba(107, 114, 128, 0.5); padding: 8px 0;">
+                <a href="#" class="dropdown-item" style="color: rgb(248, 113, 113);">
+                    <i class="fas fa-sign-out-alt" style="width: 20px;"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            const arrow = document.getElementById('dropdownArrow');
+            
+            dropdown.classList.toggle('active');
+            arrow.classList.toggle('rotate-180');
+            
+            console.log('Dropdown toggled:', dropdown.classList.contains('active'));
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#userMenu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+                document.getElementById('dropdownArrow').classList.remove('rotate-180');
+            }
+        });
+    </script>
+</body>
+</html>
