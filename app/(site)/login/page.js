@@ -136,7 +136,7 @@ export default function LoginPage() {
 
             {isLogin && (
               <div className="text-right">
-                <a href="#" className="text-sm" style={{ color: 'var(--accent-cyan)' }}>
+                <a href="/reset-password" className="text-sm" style={{ color: 'var(--accent-cyan)' }}>
                   Forgot password?
                 </a>
               </div>
