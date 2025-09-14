@@ -2,6 +2,8 @@
 
 A modern Next.js application for Websies, a web design agency offering custom websites for £47/month with 7-day delivery guarantee. Now fully integrated with Supabase for authentication and user management.
 
+<!-- Updated for fresh deployment -->
+
 ## 🚀 Quick Start
 
 ### Prerequisites
