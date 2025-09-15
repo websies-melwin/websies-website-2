@@ -94,6 +94,11 @@ function handleLogin(event) {
         
         // Show success message
         showNotification('Welcome back, ' + userName + '!', 'success');
+        
+        // Redirect to dashboard after successful login
+        setTimeout(() => {
+            window.location.href = '/dashboard';
+        }, 1000);
     } else {
         showNotification('Please enter valid credentials', 'error');
     }

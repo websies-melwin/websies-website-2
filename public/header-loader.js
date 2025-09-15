@@ -74,8 +74,8 @@ function loadHeaderDirectly() {
                     <span id="userInitial">U</span>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="#dashboard" class="dropdown-item">Dashboard</a>
-                    <a href="#profile" class="dropdown-item">Profile</a>
+                    <a href="/dashboard" class="dropdown-item">Dashboard</a>
+                    <a href="/profile" class="dropdown-item">Profile</a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item" onclick="logout()">Logout</a>
                 </div>
