@@ -1,7 +1,6 @@
 import './globals.css';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
-import { AuthProvider } from '@/components/AuthProvider';
 
 export const metadata = {
   title: 'Websies - Professional Websites in 7 Days | £47/month',
@@ -47,13 +46,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans">
-        <AuthProvider>
-          <SiteHeader />
-          <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
-            {children}
-          </main>
-          <SiteFooter />
-        </AuthProvider>
+        <SiteHeader />
+        <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );
