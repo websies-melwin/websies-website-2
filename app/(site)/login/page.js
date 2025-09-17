@@ -24,18 +24,26 @@ export default function LoginPage() {
     try {
       if (isLogin) {
         // Sign in existing user
+        console.log('Attempting login for:', formData.email);
         const { data, error } = await auth.signIn(formData.email, formData.password);
         
         if (error) {
-          setError(error.message);
+          console.error('Login error:', error);
+          setError(error.message || 'Failed to log in. Please check your credentials.');
+          setLoading(false);
           return;
         }
 
-        if (data.user) {
+        if (data && data.user) {
+          console.log('Login successful, redirecting to dashboard');
           router.push('/dashboard');
+        } else {
+          setError('Login failed. Please try again.');
+          setLoading(false);
         }
       } else {
         // Sign up new user
+        console.log('Attempting signup for:', formData.email);
         const { data, error } = await auth.signUp(
           formData.email, 
           formData.password,
@@ -46,17 +54,23 @@ export default function LoginPage() {
         );
         
         if (error) {
-          setError(error.message);
+          console.error('Signup error:', error);
+          setError(error.message || 'Failed to create account. Please try again.');
+          setLoading(false);
           return;
         }
 
-        if (data.user) {
+        if (data && data.user) {
           // Check if email confirmation is required
           if (!data.session) {
-            setError('Please check your email to confirm your account before logging in.');
+            setError('Account created! Please check your email to confirm your account before logging in.');
           } else {
+            console.log('Signup successful, redirecting to dashboard');
             router.push('/dashboard');
           }
+        } else {
+          setError('Failed to create account. Please try again.');
+          setLoading(false);
         }
       }
     } catch (err) {
