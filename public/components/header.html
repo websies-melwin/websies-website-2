@@ -23,8 +23,8 @@
                     <span id="userInitial">U</span>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="/dashboard" class="dropdown-item">Dashboard</a>
-                    <a href="/profile" class="dropdown-item">Profile</a>
+                    <a href="#dashboard" class="dropdown-item">Dashboard</a>
+                    <a href="#profile" class="dropdown-item">Profile</a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item" onclick="logout()">Logout</a>
                 </div>
@@ -92,36 +92,6 @@
             <p class="text-white/60 text-sm">
                 Don't have an account? 
                 <a href="#" class="text-accent hover:underline" onclick="switchToSignup()">Sign up</a>
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- Signup Modal -->
-<div class="modal-overlay" id="signupModal">
-    <div class="login-modal">
-        <button class="close-modal" onclick="closeSignupModal()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
-        <h2 class="text-2xl font-montserrat font-bold text-white mb-2 text-center">Create Account</h2>
-        <p class="text-white/60 text-sm text-center mb-8">Start your 7-day free trial</p>
-        
-        <form class="login-form" onsubmit="handleSignup(event)">
-            <input type="text" id="signupName" placeholder="Your name" required>
-            <input type="text" id="signupBusiness" placeholder="Business name" required>
-            <input type="email" id="signupEmail" placeholder="Email address" required>
-            <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" minlength="6" required>
-            
-            <button type="submit" class="w-full gradient-primary text-white py-3 rounded-full font-montserrat font-semibold hover:scale-105 transition-all duration-300">
-                Create Account
-            </button>
-        </form>
-        
-        <div class="mt-6 pt-6 border-t border-white/10 text-center">
-            <p class="text-white/60 text-sm">
-                Already have an account? 
-                <a href="#" class="text-accent hover:underline" onclick="switchToLogin()">Log in</a>
             </p>
         </div>
     </div>

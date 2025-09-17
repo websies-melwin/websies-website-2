@@ -1,5 +1,6 @@
 // Header Loader - Dynamically loads the global header component
 document.addEventListener('DOMContentLoaded', function() {
+    // For now, directly load the header to ensure it works
     loadHeaderDirectly();
 });
 
@@ -14,13 +15,7 @@ function initializeHeader() {
         });
     }
     
-    // Close mobile menu when clicking a link
-    const mobileLinks = mobileMenu?.querySelectorAll('a');
-    mobileLinks?.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
-    });
+
 }
 
 function setActiveNavigation() {
@@ -46,7 +41,7 @@ function setActiveNavigation() {
     });
 }
 
-// Simple header with clean login redirect
+// Fallback function to load header directly
 function loadHeaderDirectly() {
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
@@ -55,26 +50,21 @@ function loadHeaderDirectly() {
 <header id="header" class="fixed w-full top-0 z-50 border-b border-white/5">
     <div class="container mx-auto px-4 sm:px-6 py-5 flex justify-between items-center">
         <!-- Logo -->
-        <a href="/" class="text-2xl font-inter font-bold text-white">
+        <a href="index.html" class="text-2xl font-inter font-bold text-white">
             Websies
         </a>
         
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
-            <a href="/" data-nav="home" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Home</a>
-            <a href="/#process" data-nav="process" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Process</a>
-            <a href="/pricing.html" data-nav="pricing" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Pricing</a>
-            <a href="/#testimonials" data-nav="testimonials" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Reviews</a>
-            <a href="/#contact" data-nav="contact" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Contact</a>
+            <a href="index.html" data-nav="home" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Home</a>
+            <a href="index.html#process" data-nav="process" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Process</a>
+            <a href="pricing.html" data-nav="pricing" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Pricing</a>
+            <a href="index.html#testimonials" data-nav="testimonials" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Reviews</a>
+            <a href="index.html#contact" data-nav="contact" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Contact</a>
         </nav>
         
-        <!-- Login Button -->
+        <!-- CTA Button -->
         <div class="flex items-center space-x-4">
-            <a href="/login" class="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200">
-                <i class="fas fa-user-circle"></i>
-                <span>Login</span>
-            </a>
-            
             <!-- Mobile Menu -->
             <button id="mobile-menu-btn" class="lg:hidden text-white/70 hover:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,23 +75,21 @@ function loadHeaderDirectly() {
     </div>
     
     <!-- Mobile Menu -->
-    <nav id="mobile-menu" class="lg:hidden hidden bg-gray-900/95 backdrop-blur-md border-t border-white/5">
+    <nav id="mobile-menu" class="lg:hidden hidden bg-dark/95 backdrop-blur-md border-t border-white/5">
         <div class="container mx-auto px-4 py-4 space-y-3">
-            <a href="/" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Home</a>
-            <a href="/#process" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Process</a>
-            <a href="/pricing.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Pricing</a>
-            <a href="/#testimonials" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Reviews</a>
-            <a href="/#contact" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Contact</a>
-            <div class="pt-4 border-t border-white/10">
-                <a href="/login" class="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-3 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Login</span>
-                </a>
-            </div>
+            <a href="index.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Home</a>
+            <a href="index.html#process" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Process</a>
+            <a href="pricing.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Pricing</a>
+            <a href="index.html#testimonials" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Reviews</a>
+            <a href="index.html#contact" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Contact</a>
+
         </div>
     </nav>
-</header>`;
+</header>
+
+`;
         initializeHeader();
         setActiveNavigation();
     }
 }
+
