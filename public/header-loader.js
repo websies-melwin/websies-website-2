@@ -1,6 +1,5 @@
 // Header Loader - Dynamically loads the global header component
 document.addEventListener('DOMContentLoaded', function() {
-    // For now, directly load the header to ensure it works
     loadHeaderDirectly();
 });
 
@@ -15,10 +14,13 @@ function initializeHeader() {
         });
     }
     
-    // Re-initialize auth functions if auth.js is loaded
-    if (typeof initAuth === 'function') {
-        initAuth();
-    }
+    // Close mobile menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
 }
 
 function setActiveNavigation() {
@@ -44,7 +46,7 @@ function setActiveNavigation() {
     });
 }
 
-// Fallback function to load header directly
+// Simple header with clean login redirect
 function loadHeaderDirectly() {
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
@@ -53,38 +55,25 @@ function loadHeaderDirectly() {
 <header id="header" class="fixed w-full top-0 z-50 border-b border-white/5">
     <div class="container mx-auto px-4 sm:px-6 py-5 flex justify-between items-center">
         <!-- Logo -->
-        <a href="index.html" class="text-2xl font-inter font-bold text-white">
+        <a href="/" class="text-2xl font-inter font-bold text-white">
             Websies
         </a>
         
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
-            <a href="index.html" data-nav="home" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Home</a>
-            <a href="index.html#process" data-nav="process" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Process</a>
-            <a href="pricing.html" data-nav="pricing" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Pricing</a>
-            <a href="index.html#testimonials" data-nav="testimonials" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Reviews</a>
-            <a href="index.html#faq" data-nav="faq" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">FAQ</a>
+            <a href="/" data-nav="home" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Home</a>
+            <a href="/#process" data-nav="process" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Process</a>
+            <a href="/pricing.html" data-nav="pricing" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Pricing</a>
+            <a href="/#testimonials" data-nav="testimonials" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Reviews</a>
+            <a href="/#contact" data-nav="contact" class="text-white/70 hover:text-accent font-inter text-sm transition-colors">Contact</a>
         </nav>
         
-        <!-- CTA Button and User Menu -->
+        <!-- Login Button -->
         <div class="flex items-center space-x-4">
-            <!-- User Menu (for logged in users) -->
-            <div class="user-menu" id="userMenu">
-                <div class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
-                    <span id="userInitial">U</span>
-                </div>
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="/dashboard" class="dropdown-item">Dashboard</a>
-                    <a href="/profile" class="dropdown-item">Profile</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item" onclick="logout()">Logout</a>
-                </div>
-            </div>
-            
-            <!-- Login Button (for non-logged in users) -->
-            <div id="loginBtn" class="hidden sm:flex items-center cursor-pointer group" onclick="openLoginModal()">
-                <i class="fas fa-user-circle text-[var(--accent-cyan)] text-3xl hover:opacity-80 transition-all"></i>
-            </div>
+            <a href="/login" class="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200">
+                <i class="fas fa-user-circle"></i>
+                <span>Login</span>
+            </a>
             
             <!-- Mobile Menu -->
             <button id="mobile-menu-btn" class="lg:hidden text-white/70 hover:text-white">
@@ -96,125 +85,23 @@ function loadHeaderDirectly() {
     </div>
     
     <!-- Mobile Menu -->
-    <nav id="mobile-menu" class="lg:hidden hidden bg-dark/95 backdrop-blur-md border-t border-white/5">
+    <nav id="mobile-menu" class="lg:hidden hidden bg-gray-900/95 backdrop-blur-md border-t border-white/5">
         <div class="container mx-auto px-4 py-4 space-y-3">
-            <a href="index.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Home</a>
-            <a href="index.html#process" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Process</a>
-            <a href="pricing.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Pricing</a>
-            <a href="index.html#testimonials" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Reviews</a>
-            <a href="index.html#faq" class="block text-white/70 hover:text-accent font-inter text-sm py-2">FAQ</a>
+            <a href="/" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Home</a>
+            <a href="/#process" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Process</a>
+            <a href="/pricing.html" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Pricing</a>
+            <a href="/#testimonials" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Reviews</a>
+            <a href="/#contact" class="block text-white/70 hover:text-accent font-inter text-sm py-2">Contact</a>
             <div class="pt-4 border-t border-white/10">
-                <div id="mobileLoginBtn" class="flex items-center justify-center py-3 cursor-pointer group" onclick="openLoginModal()">
-                    <i class="fas fa-user-circle text-[var(--accent-cyan)] text-3xl hover:opacity-80 transition-all"></i>
-                </div>
+                <a href="/login" class="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-3 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Login</span>
+                </a>
             </div>
         </div>
     </nav>
-</header>
-
-<!-- Login Modal -->
-<div class="modal-overlay" id="loginModal">
-    <div class="login-modal">
-        <button class="close-modal" onclick="closeLoginModal()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
-        <h2 class="text-2xl font-montserrat font-bold text-white mb-2 text-center">Welcome Back</h2>
-        <p class="text-white/60 text-sm text-center mb-8">Log in to access your dashboard</p>
-        
-        <form class="login-form" onsubmit="handleLogin(event)">
-            <input type="email" id="loginEmail" placeholder="Email address" required>
-            <input type="password" id="loginPassword" placeholder="Password" required>
-            
-            <div class="flex items-center justify-between mb-6">
-                <label class="flex items-center">
-                    <input type="checkbox" class="mr-2" id="rememberMe">
-                    <span class="text-white/60 text-sm">Remember me</span>
-                </label>
-                <a href="#" class="text-accent text-sm hover:underline">Forgot password?</a>
-            </div>
-            
-            <button type="submit" class="w-full gradient-primary text-white py-3 rounded-full font-montserrat font-semibold hover:scale-105 transition-all duration-300">
-                Log In
-            </button>
-        </form>
-        
-        <div class="mt-6 pt-6 border-t border-white/10 text-center">
-            <p class="text-white/60 text-sm">
-                Don't have an account? 
-                <a href="#" class="text-accent hover:underline" onclick="switchToSignup()">Sign up</a>
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- Signup Modal -->
-<div class="modal-overlay" id="signupModal">
-    <div class="login-modal">
-        <button class="close-modal" onclick="closeSignupModal()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
-        <h2 class="text-2xl font-montserrat font-bold text-white mb-2 text-center">Create Account</h2>
-        <p class="text-white/60 text-sm text-center mb-8">Start your 7-day free trial</p>
-        
-        <form class="login-form" onsubmit="handleSignup(event)">
-            <input type="text" id="signupName" placeholder="Your name" required>
-            <input type="text" id="signupBusiness" placeholder="Business name" required>
-            <input type="email" id="signupEmail" placeholder="Email address" required>
-            <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" minlength="6" required>
-            
-            <button type="submit" class="w-full gradient-primary text-white py-3 rounded-full font-montserrat font-semibold hover:scale-105 transition-all duration-300">
-                Create Account
-            </button>
-        </form>
-        
-        <div class="mt-6 pt-6 border-t border-white/10 text-center">
-            <p class="text-white/60 text-sm">
-                Already have an account? 
-                <a href="#" class="text-accent hover:underline" onclick="switchToLogin()">Log in</a>
-            </p>
-        </div>
-    </div>
-</div>`;
+</header>`;
         initializeHeader();
         setActiveNavigation();
     }
-}
-
-// Export functions for use in other scripts
-window.toggleUserDropdown = function() {
-    const dropdown = document.getElementById('userDropdown');
-    if (dropdown) {
-        dropdown.classList.toggle('active');
-    }
-}
-
-window.openLoginModal = function() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-window.closeLoginModal = function() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-window.handleLogin = function(event) {
-    event.preventDefault();
-    // Call the Supabase auth handler
-    if (typeof handleLogin === 'function') {
-        handleLogin(event);
-    } else {
-        console.error('Authentication not loaded');
-    }
-}
-
-window.switchToSignup = function() {
-    // Implement signup modal switch
-    console.log('Switch to signup');
 }

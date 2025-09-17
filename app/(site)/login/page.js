@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../../../lib/auth';
 
@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,34 +17,71 @@ export default function LoginPage() {
     businessName: ''
   });
 
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await auth.getCurrentUser();
+      if (user) {
+        router.push('/dashboard');
+      }
+    };
+    checkUser();
+  }, [router]);
+
+  const clearMessages = () => {
+    setError('');
+    setSuccess('');
+  };
+
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      setError('Email and password are required');
+      return false;
+    }
+    
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return false;
+    }
+
+    if (!isLogin && !formData.name) {
+      setError('Name is required for signup');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    clearMessages();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
-    setError('');
 
     try {
       if (isLogin) {
-        // Sign in existing user
-        console.log('Attempting login for:', formData.email);
+        // Handle login
+        console.log('Attempting login...');
         const { data, error } = await auth.signIn(formData.email, formData.password);
         
         if (error) {
-          console.error('Login error:', error);
-          setError(error.message || 'Failed to log in. Please check your credentials.');
-          setLoading(false);
+          setError(error.message || 'Login failed');
           return;
         }
 
-        if (data && data.user) {
-          console.log('Login successful, redirecting to dashboard');
-          router.push('/dashboard');
-        } else {
-          setError('Login failed. Please try again.');
-          setLoading(false);
+        if (data?.user) {
+          setSuccess('Login successful! Redirecting...');
+          setTimeout(() => {
+            router.push('/dashboard');
+          }, 1000);
         }
       } else {
-        // Sign up new user
-        console.log('Attempting signup for:', formData.email);
+        // Handle signup
+        console.log('Attempting signup...');
         const { data, error } = await auth.signUp(
           formData.email, 
           formData.password,
@@ -54,43 +92,55 @@ export default function LoginPage() {
         );
         
         if (error) {
-          console.error('Signup error:', error);
-          setError(error.message || 'Failed to create account. Please try again.');
-          setLoading(false);
+          setError(error.message || 'Signup failed');
           return;
         }
 
-        if (data && data.user) {
-          // Check if email confirmation is required
-          if (!data.session) {
-            setError('Account created! Please check your email to confirm your account before logging in.');
+        if (data?.user) {
+          if (data.user.email_confirmed_at) {
+            setSuccess('Account created successfully! Redirecting...');
+            setTimeout(() => {
+              router.push('/dashboard');
+            }, 1000);
           } else {
-            console.log('Signup successful, redirecting to dashboard');
-            router.push('/dashboard');
+            setSuccess('Account created! Please check your email to confirm your account.');
+            // Switch to login mode
+            setTimeout(() => {
+              setIsLogin(true);
+              setFormData({ ...formData, name: '', businessName: '' });
+            }, 3000);
           }
-        } else {
-          setError('Failed to create account. Please try again.');
-          setLoading(false);
         }
       }
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
       console.error('Auth error:', err);
+      setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
+  const switchMode = () => {
+    setIsLogin(!isLogin);
+    clearMessages();
+    setFormData({
+      email: '',
+      password: '',
+      name: '',
+      businessName: ''
+    });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center py-12">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <div className="modern-card p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">
+            <h1 className="text-3xl font-bold mb-2 text-white">
               {isLogin ? 'Welcome Back' : 'Create Account'}
             </h1>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              {isLogin ? 'Log in to manage your website' : 'Get started with Websies'}
+            <p className="text-gray-400">
+              {isLogin ? 'Sign in to your account' : 'Get started with Websies'}
             </p>
           </div>
 
@@ -100,94 +150,95 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {success && (
+            <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-6">
+              <p className="text-green-400 text-sm">{success}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <>
                 <div>
-                  <label className="block mb-2 text-sm">Full Name</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Full Name *
+                  </label>
                   <input 
                     type="text" 
                     required={!isLogin}
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none"
+                    className="w-full p-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                    placeholder="Enter your full name"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm">Business Name (Optional)</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Business Name (Optional)
+                  </label>
                   <input 
                     type="text" 
                     value={formData.businessName}
                     onChange={(e) => setFormData({...formData, businessName: e.target.value})}
-                    className="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none"
-                    placeholder="Your business or organization name"
+                    className="w-full p-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                    placeholder="Your business name"
                   />
                 </div>
               </>
             )}
 
             <div>
-              <label className="block mb-2 text-sm">Email Address</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Email Address *
+              </label>
               <input 
                 type="email" 
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none"
+                className="w-full p-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label className="block mb-2 text-sm">Password</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Password *
+              </label>
               <input 
                 type="password" 
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none"
+                className="w-full p-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                placeholder="Enter your password"
+                minLength={6}
               />
+              {!isLogin && (
+                <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+              )}
             </div>
 
-            {isLogin && (
-              <div className="text-right">
-                <a href="/reset-password" className="text-sm" style={{ color: 'var(--accent-cyan)' }}>
-                  Forgot password?
-                </a>
-              </div>
-            )}
-
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? 'Please wait...' : (isLogin ? 'Log In' : 'Sign Up')}
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+            >
+              {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-sm text-gray-400">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button 
-                onClick={() => setIsLogin(!isLogin)}
-                className="font-semibold" 
-                style={{ color: 'var(--accent-cyan)' }}
+                onClick={switchMode}
+                className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                disabled={loading}
               >
-                {isLogin ? 'Sign up' : 'Log in'}
+                {isLogin ? 'Sign up' : 'Sign in'}
               </button>
             </p>
-          </div>
-
-          <div className="mt-8 pt-6 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-            <p className="text-center text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
-              Or continue with
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <button className="p-3 rounded-lg border border-white/10 hover:bg-white/5 transition">
-                <i className="fab fa-google mr-2"></i>
-                Google
-              </button>
-              <button className="p-3 rounded-lg border border-white/10 hover:bg-white/5 transition">
-                <i className="fab fa-facebook mr-2"></i>
-                Facebook
-              </button>
-            </div>
           </div>
         </div>
       </div>
