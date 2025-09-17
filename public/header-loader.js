@@ -206,9 +206,11 @@ window.closeLoginModal = function() {
 
 window.handleLogin = function(event) {
     event.preventDefault();
-    // This will be handled by auth.js
-    if (typeof handleLoginSubmit === 'function') {
-        handleLoginSubmit(event);
+    // Call the Supabase auth handler
+    if (typeof handleLogin === 'function') {
+        handleLogin(event);
+    } else {
+        console.error('Authentication not loaded');
     }
 }
 

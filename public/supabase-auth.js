@@ -269,6 +269,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initSupabase, 1000);
 });
 
+// Expose functions to window for global access
+window.handleLogin = handleLogin;
+window.handleSignup = handleSignup;
+window.logout = logout;
+window.openLoginModal = openLoginModal;
+window.closeLoginModal = closeLoginModal;
+window.openSignupModal = openSignupModal;
+window.closeSignupModal = closeSignupModal;
+window.switchToSignup = switchToSignup;
+window.switchToLogin = switchToLogin;
+window.toggleUserDropdown = toggleUserDropdown;
+
 // Close dropdown when clicking outside
 document.addEventListener('click', function(event) {
     const userAvatar = document.getElementById('userAvatar');
