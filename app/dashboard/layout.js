@@ -1,5 +1,4 @@
 import '../globals.css';
-import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata = {
   title: 'Dashboard - Websies',
@@ -22,9 +21,7 @@ export default function DashboardLayout({ children }) {
         />
       </head>
       <body className="font-sans dashboard-full-layout">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        {children}
       </body>
     </html>
   );
